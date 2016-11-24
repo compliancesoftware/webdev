@@ -24,14 +24,6 @@ public class FiltroRegistro
 	private Calendar validadeInicio = null;
 	private Calendar validadeFim = null;
 	
-	private Calendar dtInclusaoInicio = null;
-	private Calendar dtInclusaoFim = null;
-	
-	private String quemIncluiu = null;
-	
-	private int vencimentoInicio = 1;
-	private int vencimentoFim = 30;
-	
 	private int ativo = AMBOS;
 	
 	/**
@@ -118,66 +110,5 @@ public class FiltroRegistro
 	public void setValidadeFim(Calendar validadeFim) {
 		this.validadeFim = validadeFim;
 	}
-	/**
-	 * @return Retorna dtInclusaoInicio
-	 */
-	public Calendar getDtInclusaoInicio() {
-		return this.dtInclusaoInicio;
-	}
-	/**
-	 * @param Nova configuração para dtInclusaoInicio
-	 */
-	public void setDtInclusaoInicio(Calendar dtInclusaoInicio) {
-		this.dtInclusaoInicio = dtInclusaoInicio;
-	}
-	/**
-	 * @return Retorna dtInclusaoFim
-	 */
-	public Calendar getDtInclusaoFim() {
-		return this.dtInclusaoFim;
-	}
-	/**
-	 * @param Nova configuração para dtInclusaoFim
-	 */
-	public void setDtInclusaoFim(Calendar dtInclusaoFim) {
-		this.dtInclusaoFim = dtInclusaoFim;
-	}
-	/**
-	 * @return Retorna quemIncluiu
-	 */
-	public String getQuemIncluiu() {
-		return this.quemIncluiu;
-	}
-	/**
-	 * @param Nova configuração para quemIncluiu
-	 */
-	public void setQuemIncluiu(String quemIncluiu) {
-		this.quemIncluiu = quemIncluiu;
-	}
-	/**
-	 * @return Retorna vencimentoInicio
-	 */
-	public int getVencimentoInicio() {
-		return this.vencimentoInicio;
-	}
-	/**
-	 * @param Nova configuração para vencimentoInicio
-	 */
-	public void setVencimentoInicio(int vencimentoInicio) {
-		this.vencimentoInicio = vencimentoInicio;
-	}
-	/**
-	 * @return Retorna vencimentoFim
-	 */
-	public int getVencimentoFim() {
-		return this.vencimentoFim;
-	}
-	/**
-	 * @param Nova configuração para vencimentoFim
-	 */
-	public void setVencimentoFim(int vencimentoFim) {
-		this.vencimentoFim = vencimentoFim;
-	}
-	
 	
 }

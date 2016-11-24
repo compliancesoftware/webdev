@@ -35,8 +35,20 @@
   <div class="row">
   	<div class="col-md-3"></div>
   	<div class="col-md-6">
-  		<form action="pesquisa()">
-  			
+  		<form>
+  			<input name="cliente" class="form-control" type="text" placeholder="Nome de cliente">
+  			<input name="software" class="form-control" type="text" placeholder="Nome de cliente">
+  			<input id="valor" name="valor" class="form-control" type="text" placeholder="Valor">
+  			<input id="desconto" name="desconto" class="form-control" type="text" placeholder="Desconto">
+  			<input name="validadeInicio" type="date" class="form-control" placeholder="Validade (inicio)">
+        	<input name="validadeFim" type="date" class="form-control" placeholder="Validade (fim)">
+        	<select name="ativo">
+        		<option value=2>Sem filtro</option>
+        		<option value=0>Desativados</option>
+        		<option value=1>Ativos</option>
+        	</select>
+        	<br>
+        	<button class="btn-block btn-white form-control info" type="button" onclick="pesquisa()">Pesquisar</button>
   		</form>
   	</div>
   	<div class="col-md-3"></div>
@@ -45,12 +57,28 @@
 </div>
 <!-- /body -->
 <mtag:cssJsFoot/>
+<mtag:inputMoeda campo="valor"/>
+<mtag:inputPercentual campo="desconto"/>
 <script type="text/javascript">
 	function pesquisa(){
-		var pesquisa = $("#pesquisa").val();
-		$.post("pesquisaClientes",{'pesquisa':pesquisa},function (resposta){
-			$("#tabela").html(resposta);
-		});	
+		var cliente = $(input[name='cliente']).val();
+		var software = $(input[name='software']).val();
+		var valor = $(input[name='valor']).val();
+		var desconto = $(input[name='desconto']).val();
+		var validadeInicio = $(input[name='validadeInicio']).val();
+		var validadeFim = $(input[name='validadeFim']).val();
+		var ativo = $(input[name='ativo']).val();
+		
+		$.post("pesquisarRegistros",{'cliente':cliente,
+			'software':software,
+			'valor':valor,
+			'desconto':desconto,
+			'validadeInicio':validadeInicio,
+			'validadeFim':validadeFim,
+			'ativo':ativo},
+			function (resposta){
+				$("#tabela").html(resposta);
+			});	
 	}
 </script>
 </body>
