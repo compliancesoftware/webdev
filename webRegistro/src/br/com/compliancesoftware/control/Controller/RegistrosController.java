@@ -300,4 +300,16 @@ public class RegistrosController
 		return "redirect:gerenciarRegistros";
 	}
 	
+	/**
+	 * Consulta o Status de um determinado registro para determinado software.
+	 * retorna em forma de XML escrito através de um PrintWriter usando XStream
+	 * @param cliente
+	 * @param software
+	 */
+	@RequestMapping("consultaRegistro")
+	public void consultaRegistro(String cliente, String software)
+	{
+		//TODO
+	}
+	
 }

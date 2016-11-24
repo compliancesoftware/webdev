@@ -7,23 +7,18 @@
       					<th scope="col">Cliente</th>
             	        <th scope="col">Software</th>
       					<th scope="col">Validade</th>
-      					<th scope="col">E-mail</th>
-      					<th scope="col">Responsável</th>
-            	        <th scope="col">Operações</th>
+      					<th scope="col">Valor</th>
     				</tr>
-            	    <c:forEach var="cliente" items="${listaClientes}">
+            	    <c:forEach var="registro" items="${listaRegistros}">
             	     <tr>
-            	      <td>${cliente.nome}</td>
-            	      <td>${cliente.fmtCodigo}</td>
-            	      <td>${cliente.fmtContato}</td>
-            	      <td><a href="enviaEmail?email='${cliente.email}'">${cliente.email}</a></td>
-            	      <td>${cliente.responsavel}</td>
+            	      <td>${registro.cliente.nome}</td>
+            	      <td>${registro.software.nome}</td>
+            	      <td>${registro.fmtValidade}</td>
+            	      <td>${registro.fmtValor}</td>
             	      <td>
-            	         <a href="visualizarRegistros?id=${cliente.id}">Visualizar registros</a>
+            	         <a href="atualizarRegistro?id=${cliente.id}">Atualizar</a>
             	         <br>
-            	         <a href="atualizarCliente?id=${cliente.id}">Atualizar</a>
-            	         <br>
-            	         <a href="removerCliente?id=${cliente.id}">Remover</a>
+            	         <a href="removerRegistro?id=${cliente.id}">Remover</a>
             	      </td>
             	     </tr>
             	    </c:forEach>
