@@ -18,11 +18,13 @@ import br.com.compliancesoftware.control.dao.ClientesDao;
 import br.com.compliancesoftware.control.dao.LogsDao;
 import br.com.compliancesoftware.control.dao.PerfisDao;
 import br.com.compliancesoftware.control.dao.RegistrosDao;
+import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
 import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.Registro;
+import br.com.compliancesoftware.model.Software;
 
 /**
  * Controller de registros (acessível apenas por perfis ADM)
@@ -52,6 +54,10 @@ public class RegistrosController
 	@Qualifier("registrosJPA")
 	@Autowired
 	private RegistrosDao registrosDao;
+	
+	@Qualifier("softwaresJPA")
+	@Autowired
+	private SoftwaresDao softwaresDao;
 	
 	private String mensagem = null;
 	
@@ -173,15 +179,27 @@ public class RegistrosController
 			model.addAttribute("mensagem",mensagem);
 			mensagem = null;
 			
-			List<Registro> listaRegistros = registrosDao.lista();
-			model.addAttribute("listaRegistros",listaRegistros);
+			List<Cliente> listaClientes = clientesDao.listaClientes();
+			model.addAttribute("listaClientes",listaClientes);
+			
+			List<Software> listaSoftwares = softwaresDao.lista();
+			model.addAttribute("listaSoftwares",listaSoftwares);
+			
+			ArrayList<Double> listaPercentual = new ArrayList<Double>();
+			listaPercentual.add(0.00d);
+			for(double dec = 0.00d;dec < 100.00d;)
+			{
+				dec += 1.00d;
+				listaPercentual.add(dec);
+			}
+			model.addAttribute("listaPercentual",listaPercentual);
 			
 			return "registros/cadastrar";
 		}
 	}
 	
 	/**
-	 * Este método vis ser usado numa requisição Ajax e retorna um selector de clientes após a busca.
+	 * Este método visa ser usado numa requisição Ajax e retorna um selector de clientes após a busca.
 	 * @param pesquisa
 	 * @param model
 	 * @return
@@ -192,7 +210,7 @@ public class RegistrosController
 		List<Cliente> listaClientes = clientesDao.pesquisaCliente(pesquisa);
 		model.addAttribute("listaClientes",listaClientes);
 		
-		return "regsitros/seletorclientes";
+		return "regsitros/cliente-selector";
 	}
 	
 	/**
