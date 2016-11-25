@@ -18,7 +18,23 @@
             	      <td>
             	         <a href="atualizarRegistro?id=${cliente.id}">Atualizar</a>
             	         <br>
-            	         <a href="removerRegistro?id=${cliente.id}">Remover</a>
+            	         <a href="#" data-toggle="modal" data-target="#myModal${cliente.id}">Remover</a>
+            	         <div id="myModal${cliente.id}" class="modal fade" role="dialog">
+  						 	<div class="modal-dialog">
+  						 		<div class="modal-content">
+  						 			<div class="modal-header">
+  						 				<button type="button" class="close" data-dismiss="modal">&times;</button>
+  						 				<h4 class="modal-title">Tem certeza?</h4>
+  						 			</div>
+  						 			<div class="modal-body">
+  						 				<p>Deseja realmente remover este registro?.</p>
+  						 			</div>
+  						 			<div class="modal-footer">
+  						 				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="remove(${cliente.id})">Sim</button>
+  						 			</div>
+  						 		</div>
+  						 	</div>
+  						 </div>
             	      </td>
             	     </tr>
             	    </c:forEach>

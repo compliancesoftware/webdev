@@ -125,7 +125,7 @@ public class RegistrosJPA implements RegistrosDao
 		}
 		
 		double desconto = filtro.getDesconto();
-		if(desconto > 0 && desconto <= 100)
+		if(desconto >= 0 && desconto <= 100)
 		{
 			q += " and r.desconto = :paramDesconto";
 			param = new HashMap<String,Object>();
@@ -228,7 +228,7 @@ public class RegistrosJPA implements RegistrosDao
 			}
 			else if(tipo.equals("double"))
 			{
-				query.setParameter(nome, (int)item.get("valor"));
+				query.setParameter(nome, (double)item.get("valor"));
 			}
 			else if(tipo.equals("boolean"))
 			{

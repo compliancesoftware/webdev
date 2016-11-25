@@ -1,5 +1,6 @@
 package br.com.compliancesoftware.test;
 
+import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
 import br.com.compliancesoftware.model.auxModels.VerificaId;
 
 /**
@@ -20,8 +21,23 @@ public class Test
 	 * @param cnpj
 	 * @return
 	 */
-	private static boolean testaCodigo(String codigo)
+	public static boolean testaCodigo(String codigo)
 	{
 		return VerificaId.verifica(codigo);
+	}
+	
+	/**
+	 * Imprime o conteúdo do filtro.
+	 * @param filtro
+	 */
+	public static void testaFiltroRegistro(FiltroRegistro filtro)
+	{
+		System.out.println("Cliente: "+filtro.getCliente());
+		System.out.println("Software: "+filtro.getSoftware());
+		System.out.println("Valor: "+filtro.getValor());
+		System.out.println("Desconto: "+filtro.getDesconto());
+		System.out.println("Validade entre: "+filtro.getValidadeInicio());
+		System.out.println("e: "+filtro.getValidadeFim());
+		System.out.println("Ativo: "+filtro.getAtivo());
 	}
 }

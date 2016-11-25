@@ -36,12 +36,24 @@
   	<div class="col-md-3"></div>
   	<div class="col-md-6">
   		<form>
+  			Cliente:
   			<input name="cliente" class="form-control" type="text" placeholder="Nome de cliente">
+  			Software:
   			<input name="software" class="form-control" type="text" placeholder="Nome do software">
+  			Valor:
   			<input id="valor" name="valor" class="form-control" type="text" placeholder="Valor">
-  			<input id="desconto" name="desconto" class="form-control" type="text" placeholder="Desconto">
+  			Desconto:
+  			<select name="desconto" class="form-control">
+  				<option id="semfiltro" value="-1.00">Sem Filtro</option>
+  				<c:forEach var="d" items="${listaPercentual}">
+  					<option id="${d}" value="${d}">${d}%</option>
+  				</c:forEach>
+  			</select>
+  			Validade entre:
   			<input type="text" id="validadeInicio" name="validadeInicio" class="form-control" placeholder="Validade(inicio)" readonly="readonly" />
+  			e:
         	<input type="text" id="validadeFim" name="validadeFim" class="form-control" placeholder="Validade(fim)" readonly="readonly" />
+        	Ativos:
         	<select name="ativo" class="form-control">
         		<option value=2>Sem filtro</option>
         		<option value=0>Desativados</option>
@@ -58,7 +70,6 @@
 <!-- /body -->
 <mtag:cssJsFoot/>
 <mtag:inputdecimal campo="valor" tamanho="7"/>
-<mtag:inputdecimal campo="desconto" tamanho="6"/>
 <mtag:campoData campo="validadeInicio"/>
 <mtag:campoData campo="validadeFim"/>
 <script type="text/javascript">
@@ -66,7 +77,7 @@
 		var cliente = $("input[name='cliente']").val();
 		var software = $("input[name='software']").val();
 		var valor = $("input[name='valor']").val();
-		var desconto = $("input[name='desconto']").val();
+		var desconto = $("select[name='desconto']").val();
 		var validadeInicio = $("input[name='validadeInicio']").val();
 		var validadeFim = $("input[name='validadeFim']").val();
 		var ativo = $("select[name='ativo']").val();
@@ -81,6 +92,11 @@
 			function (resposta){
 				$("#tabela").html(resposta);
 			});
+	}
+</script>
+<script type="text/javascript">
+	function remove(cliente){
+		$.get("removerRegistro",{'id':cliente});
 	}
 </script>
 </body>

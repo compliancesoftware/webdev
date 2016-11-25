@@ -1,5 +1,6 @@
 package br.com.compliancesoftware.control.Controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -82,6 +83,15 @@ public class RegistrosController
 			List<Registro> listaRegistros = registrosDao.lista();
 			model.addAttribute("listaRegistros",listaRegistros);
 			
+			ArrayList<Double> listaPercentual = new ArrayList<Double>();
+			listaPercentual.add(0.00d);
+			for(double dec = 0.00d;dec < 100.00d;)
+			{
+				dec += 1.00d;
+				listaPercentual.add(dec);
+			}
+			model.addAttribute("listaPercentual",listaPercentual);
+			
 			return "registros/registros";
 		}
 	}
@@ -132,11 +142,8 @@ public class RegistrosController
 	@RequestMapping("pesquisarRegistros")
 	public String pesquisarRegistros(FiltroRegistro filtro, Model model)
 	{
-		System.out.println("oi");
 		List<Registro> listaRegistros = registrosDao.lista(filtro);
 		model.addAttribute("listaRegistros",listaRegistros);
-		
-		System.out.println(""+filtro.getCliente());
 		
 		return "registros/tabela";
 	}
