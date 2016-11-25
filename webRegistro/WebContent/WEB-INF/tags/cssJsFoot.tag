@@ -3,6 +3,9 @@
 <!-- jQuery (necessário para plugins Bootstrap's JavaScript) --> 
 <script src="<c:url value="/resources/js/jquery.js" />"></script>
 
+<!-- jQuery (necessário para plugins jQuery de gráficos) --> 
+<script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
+
 <!-- Inclua, a seguir, todos os plugins pré-compilados, ou inclua arquivos individuais assim que necessário --> 
 <script src="<c:url value="/resources/js/bootstrap.js" />"></script>
 

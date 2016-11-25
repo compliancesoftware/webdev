@@ -9,6 +9,9 @@
 <!-- Font Awesome -->
 <link href="<c:url value="/resources/css/font-awesome.css" />" rel="stylesheet" type="text/css">
 
+<!-- jQuery-UI -->
+<link href="<c:url value="/resources/js/jquery-ui.css" />" rel="stylesheet">
+
 <!-- HTML5 shim e Respond.js para suporte a elementos e media queries no IE8 -->
 <!-- WARNING: Respond.js não funciona se tentar visualizar a página via file:// -->
 <!--[if lt IE 9]>

@@ -1,5 +1,6 @@
 package br.com.compliancesoftware.control.dao.filtros;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -95,8 +96,20 @@ public class FiltroRegistro
 	/**
 	 * @param Nova configuração para validadeInicio
 	 */
-	public void setValidadeInicio(Calendar validadeInicio) {
-		this.validadeInicio = validadeInicio;
+	public void setValidadeInicio(String validadeInicio) {
+		try
+		{
+			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+			
+			Calendar data = Calendar.getInstance();
+			data.setTime(fmt.parse(validadeInicio));
+			this.validadeInicio = data;
+		}
+		catch(Exception e)
+		{
+			this.validadeInicio = null;
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * @return Retorna validadeFim
@@ -107,8 +120,20 @@ public class FiltroRegistro
 	/**
 	 * @param Nova configuração para validadeFim
 	 */
-	public void setValidadeFim(Calendar validadeFim) {
-		this.validadeFim = validadeFim;
+	public void setValidadeFim(String validadeFim) {
+		try
+		{
+			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+			
+			Calendar data = Calendar.getInstance();
+			data.setTime(fmt.parse(validadeFim));
+			this.validadeFim = data;
+		}
+		catch(Exception e)
+		{
+			this.validadeFim = null;
+			e.printStackTrace();
+		}
 	}
 	
 }

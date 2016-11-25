@@ -132,8 +132,11 @@ public class RegistrosController
 	@RequestMapping("pesquisarRegistros")
 	public String pesquisarRegistros(FiltroRegistro filtro, Model model)
 	{
+		System.out.println("oi");
 		List<Registro> listaRegistros = registrosDao.lista(filtro);
 		model.addAttribute("listaRegistros",listaRegistros);
+		
+		System.out.println(""+filtro.getCliente());
 		
 		return "registros/tabela";
 	}
