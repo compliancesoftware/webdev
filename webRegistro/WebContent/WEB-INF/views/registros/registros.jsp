@@ -46,7 +46,7 @@
   			<select name="desconto" class="form-control" onchange="pesquisa()">
   				<option id="semfiltro" value="-1.00">Sem Filtro</option>
   				<c:forEach var="d" items="${listaPercentual}">
-  					<option id="${d}" value="${d}">${d}%</option>
+  					<option id="${d.valor}" value="${d.valor}">${d.valorAsString}%</option>
   				</c:forEach>
   			</select>
   			Validade entre:

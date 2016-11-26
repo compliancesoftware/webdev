@@ -25,6 +25,7 @@ import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.Software;
+import br.com.compliancesoftware.model.auxModels.Percentual;
 import br.com.compliancesoftware.model.auxModels.RegistroAux;
 
 /**
@@ -90,13 +91,7 @@ public class RegistrosController
 			List<Registro> listaRegistros = registrosDao.lista();
 			model.addAttribute("listaRegistros",listaRegistros);
 			
-			ArrayList<Double> listaPercentual = new ArrayList<Double>();
-			listaPercentual.add(0.00d);
-			for(double dec = 0.00d;dec < 100.00d;)
-			{
-				dec += 1.00d;
-				listaPercentual.add(dec);
-			}
+			ArrayList<Percentual> listaPercentual = Percentual.getListaZeroACem();
 			model.addAttribute("listaPercentual",listaPercentual);
 			
 			return "registros/registros";
@@ -186,13 +181,7 @@ public class RegistrosController
 			List<Software> listaSoftwares = softwaresDao.lista();
 			model.addAttribute("listaSoftwares",listaSoftwares);
 			
-			ArrayList<Double> listaPercentual = new ArrayList<Double>();
-			listaPercentual.add(0.00d);
-			for(double dec = 0.00d;dec < 100.00d;)
-			{
-				dec += 1.00d;
-				listaPercentual.add(dec);
-			}
+			ArrayList<Percentual> listaPercentual = Percentual.getListaZeroACem();
 			model.addAttribute("listaPercentual",listaPercentual);
 			
 			return "registros/cadastrar";
@@ -264,7 +253,7 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("atualizarRegistro")
-	public String atualizarRegistro(Long id, HttpSession session, Model model)//TODO fazer view
+	public String atualizarRegistro(Long id, HttpSession session, Model model)//TODO fazer view e as views de controle e cadastro de software
 	{
 		Registro registro = registrosDao.pegaRegistroPorId(id);
 		model.addAttribute("registro", registro);

@@ -10,7 +10,7 @@
 
 <mtag:favicon/>
 
-<title>WebRegistro - Registrar Software</title>
+<title>WebRegistro - Atualizar Registro de Software</title>
 
 <mtag:cssJsHead/>
 
@@ -26,13 +26,14 @@
             <div id="form" class="panel panel-default nav-padded">
                 <mtag:mensagem msg="${mensagem}"/>
             	<div class="panel-heading text-center">
-                	<h3>Registro de Software para Cliente</h3>
+                	<h3>Atualizar Registro de Software para Cliente</h3>
                 </div>
             	<div class="panel-body">
                 	<div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                        	<form class="form-group" method="post" action="cadastraRegistro">
+                        	<form class="form-group" method="post" action="atualizaRegistro">
+                        		<input type="hidden" name="id" value="${registro.id}">
                         		<br>
                         		Cliente:
                         		<input id="pesquisaClientes" type="text" placeholder="Digite o nome de um cliente para facilitar a pesquisa"  class="form-control" onkeyup="pesquisa()">
