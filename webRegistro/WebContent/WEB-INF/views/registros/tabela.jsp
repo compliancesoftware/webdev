@@ -14,7 +14,7 @@
             	      <td>${registro.cliente.nome}</td>
             	      <td>${registro.software.nome}</td>
             	      <td>${registro.fmtValidade}</td>
-            	      <td>${registro.fmtValor}</td>
+            	      <td>${registro.fmtValorComUnidade}</td>
             	      <td>
             	         <a href="atualizarRegistro?id=${cliente.id}">Atualizar</a>
             	         <br>

@@ -81,7 +81,7 @@ public class SoftwaresJPA implements SoftwaresDao
 	@Override
 	public Software getSoftwareByNome(String nome) 
 	{
-		Query query = manager.createQuery("select s from Software as s where s.id = :paramNome");
+		Query query = manager.createQuery("select s from Software as s where s.nome = :paramNome");
 		query.setParameter("paramNome", nome);
 		@SuppressWarnings("unchecked")
 		List<Software> lista = query.getResultList();

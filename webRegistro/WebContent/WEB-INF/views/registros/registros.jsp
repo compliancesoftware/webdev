@@ -37,24 +37,24 @@
   	<div class="col-md-6">
   		<form>
   			Cliente:
-  			<input name="cliente" class="form-control" type="text" placeholder="Nome de cliente">
+  			<input name="cliente" class="form-control" type="text" placeholder="Nome de cliente" onkeyup="pesquisa()">
   			Software:
-  			<input name="software" class="form-control" type="text" placeholder="Nome do software">
+  			<input name="software" class="form-control" type="text" placeholder="Nome do software" onkeyup="pesquisa()">
   			Valor:
-  			<input id="valor" name="valor" class="form-control" type="text" placeholder="Valor">
+  			<input id="valor" name="valor" class="form-control" type="text" placeholder="Valor" onkeyup="pesquisa()">
   			Desconto:
-  			<select name="desconto" class="form-control">
+  			<select name="desconto" class="form-control" onchange="pesquisa()">
   				<option id="semfiltro" value="-1.00">Sem Filtro</option>
   				<c:forEach var="d" items="${listaPercentual}">
   					<option id="${d}" value="${d}">${d}%</option>
   				</c:forEach>
   			</select>
   			Validade entre:
-  			<input type="text" id="validadeInicio" name="validadeInicio" class="form-control" placeholder="Validade(inicio)" readonly="readonly" />
+  			<input type="text" id="validadeInicio" name="validadeInicio" class="form-control" placeholder="Validade(inicio)" onchange="pesquisa()" readonly="readonly" />
   			e:
-        	<input type="text" id="validadeFim" name="validadeFim" class="form-control" placeholder="Validade(fim)" readonly="readonly" />
+        	<input type="text" id="validadeFim" name="validadeFim" class="form-control" placeholder="Validade(fim)" onchange="pesquisa()" readonly="readonly" />
         	Ativos:
-        	<select name="ativo" class="form-control">
+        	<select name="ativo" class="form-control" onchange="pesquisa()">
         		<option value=2>Sem filtro</option>
         		<option value=0>Desativados</option>
         		<option value=1>Ativos</option>

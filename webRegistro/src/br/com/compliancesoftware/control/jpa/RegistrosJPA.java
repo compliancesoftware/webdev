@@ -103,8 +103,8 @@ public class RegistrosJPA implements RegistrosDao
 		String cliente = filtro.getCliente();
 		if(cliente != null && !cliente.equals(""))
 		{
-			q += " and r.cliente.nome like :paramCliente";
-			cliente = "%"+cliente+"%";
+			q += " and upper(r.cliente.nome) like :paramCliente";
+			cliente = "%"+cliente.toUpperCase()+"%";
 			param = new HashMap<String,Object>();
 			param.put("tipo", "String");
 			param.put("nome", "paramCliente");
@@ -115,8 +115,8 @@ public class RegistrosJPA implements RegistrosDao
 		String software = filtro.getSoftware();
 		if(software != null && !software.equals(""))
 		{
-			q += " and r.software.nome like :paramSoftware";
-			software = "%"+software+"%";
+			q += " and upper(r.software.nome) like :paramSoftware";
+			software = "%"+software.toUpperCase()+"%";
 			param = new HashMap<String,Object>();
 			param.put("tipo", "String");
 			param.put("nome", "paramSoftware");

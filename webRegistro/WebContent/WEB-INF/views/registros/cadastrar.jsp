@@ -28,40 +28,40 @@
             	<div class="panel-heading text-center">
                 	<h3>Registro de Software para Cliente</h3>
                 </div>
-            	<div class="panel-body"><!-- TODO testar isso tudo -->
+            	<div class="panel-body">
                 	<div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                         	<form class="form-group" method="post" action="cadastraRegistro">
-                        	<br>
-                        	<input id="pesquisaClientes" type="text" name="pesquisaClientes" placeholder="digite o nome de um cliente"  class="form-control" onkeyup="pesquisa(this.value)">
-                        	Cliente:
-                        	<div id="cliente-selector">
-                        		<c:import url="cliente-selector.jsp"/>
-                        	</div>
-                        	<br>
-                        	Software:
-                        	<select name="software"  class="form-control" onchange="atualizaValor(this.value)">
+                        		<br>
+                        		<input id="pesquisaClientes" type="text" placeholder="digite o nome de um cliente"  class="form-control" onkeyup="pesquisa()">
+                        		Cliente:
+                        		<div id="cliente-selector">
+                        			<c:import url="cliente-selector.jsp"/>
+                        		</div>
+                        		<br>
+                        		Software:
+                        		<select id="software" name="software"  class="form-control" onchange="atualizaValor()">
+                        			<c:forEach var="soft" items="${listaSoftwares}">
+                        				<option id="${soft.id}" value="${soft.nome}" >${soft.nome}</option>
+                        			</c:forEach>
+                        		</select>
                         		<c:forEach var="soft" items="${listaSoftwares}">
-                        			<option id="${soft.id}" value="${soft.id}" >${soft.nome}</option>
+                        			<input type="hidden" id="${soft.nome}" value="${soft.valor}">
                         		</c:forEach>
-                        	</select>
-                        	<c:forEach var="soft" items="${listaSoftwares}">
-                        		<input type="hidden" id="${soft.nome}" value="${soft.valor}">
-                        	</c:forEach>
-                        	<br>
-                        	Valor
-                        	<input id="valor" type="text" name="valor"  class="form-control" readonly>
-                        	<br>
-                        	Desconto
-                        	<select name="desconto" class="form-control" onchange="atualizaDesconto(this.value)">
-                        		<c:forEach var="desc" items="${listaPercentual}">
-                        			<option id="${desc}" value="${desc}" >${desc}%</option>
-                        		</c:forEach>
-                        	</select>
-                            <br>
-                            <button class="btn-block btn-white form-control info" type="submit">Registrar Novo Software</button>
-                        </form>
+                        		<br>
+                        		Valor
+                        		<input id="valor" type="text" name="valor"  class="form-control" readonly>
+                        		<br>
+                        		Desconto
+                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
+                        			<c:forEach var="desc" items="${listaPercentual}">
+                        				<option id="${desc}" value="${desc}" >${desc}%</option>
+                        			</c:forEach>
+                        		</select>
+                            	<br>
+                            	<button class="btn-block btn-white form-control info" type="submit">Registrar Novo Software</button>
+                        	</form>
                         </div>
                         <div class="col-md-2"></div>
                      </div>
@@ -75,30 +75,38 @@
 <!-- /body -->
 <mtag:cssJsFoot/>
 <script type="text/javascript">
-	$(document).ready(function(){
-		function pesquisa(pesquisa){
-			$.post("pesquisarClienteParaRegistro",
-					{'pesquisa':pesquisa},
-					function (resposta){
-						$("#cliente-selector").html(resposta);
-					});
-		}
-		
-		$("#valor").val($("#"+$("#soft").val()).val());
-		
-		function atualizaValor(valor){
-			var desconto = $("#desconto").val();
-			desconto = desconto/100;
-			valor = valor - (valor * desconto);
-			$("#valor").val(valor);
-		}
-		
-		function atualizaDesconto(desconto){
-			var valor = $("#software").val();
-			valor = valor - (valor * desconto);
-			$("#valor").val(valor);
-		}
-	});
+function pesquisa(){
+	var pesquisa = $("#pesquisaClientes").val();
+	$.post("pesquisarClienteParaRegistro",
+			{'pesquisa':pesquisa},
+			function (resposta){
+				$("#cliente-selector").html(resposta);
+			});
+}
+
+var id = $("#software").val();
+var pValor = $("#"+id).val();
+$("#valor").val(pValor);
+
+function atualizaValor(){
+	var id_escolhido = $("#software").val();
+	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
+	var desconto = Number($("#desconto").val()).toFixed(2);
+	desconto = desconto/100;
+	valor = valor - (valor * desconto);
+	var strvalor = ""+Number(valor).toFixed(2);
+	$("#valor").val(strvalor);
+}
+
+function atualizaDesconto(){
+	var desconto = Number($("#desconto").val()).toFixed(2);
+	desconto = desconto/100;
+	var id_escolhido = $("#software").val();
+	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
+	valor = valor - (valor * desconto);
+	var strvalor = ""+Number(valor).toFixed(2);
+	$("#valor").val(strvalor);
+}
 </script>
 </body>
 </html>

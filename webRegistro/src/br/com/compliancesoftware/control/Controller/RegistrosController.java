@@ -25,6 +25,7 @@ import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.Software;
+import br.com.compliancesoftware.model.auxModels.RegistroAux;
 
 /**
  * Controller de registros (acessível apenas por perfis ADM)
@@ -207,10 +208,11 @@ public class RegistrosController
 	@RequestMapping("pesquisarClienteParaRegistro")
 	public String pesquisarClienteParaRegistro(String pesquisa, Model model)
 	{
+		System.out.println(pesquisa);
 		List<Cliente> listaClientes = clientesDao.pesquisaCliente(pesquisa);
 		model.addAttribute("listaClientes",listaClientes);
 		
-		return "regsitros/cliente-selector";
+		return "registros/cliente-selector";
 	}
 	
 	/**
@@ -220,21 +222,32 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("cadastraRegistro")
-	public String cadastraRegistro(Registro registro, HttpSession session)
+	public String cadastraRegistro(RegistroAux registro, HttpSession session)
 	{
 		Perfil logado = (Perfil)session.getAttribute("logado");
 		Calendar agora = Calendar.getInstance();
 		agora.setTimeInMillis(System.currentTimeMillis());
 		
-		registro.setQuemIncluiu(logado);
-		registro.setIncluido(agora);
-		registro.setAtivo(true);
+		Registro reg = new Registro();
+		reg.setAtivo(true);
+		Cliente cliente = clientesDao.pegaClientePorId(registro.getCliente());
+		reg.setCliente(cliente);
+		reg.setDesconto(registro.getDesconto());
+		Calendar hoje = Calendar.getInstance();
+		hoje.setTimeInMillis(System.currentTimeMillis());
+		reg.setIncluido(hoje);
+		reg.setObservacoes(registro.getObservacoes());
+		reg.setQuemIncluiu(logado);
+		Software software = softwaresDao.getSoftwareByNome(registro.getSoftware());
+		reg.setSoftware(software);
+		reg.setValidade(registro.getValidade());
+		reg.setValor(registro.getValor());
 		
-		mensagem = registrosDao.adiciona(registro);
+		mensagem = registrosDao.adiciona(reg);
 		if(mensagem.contains(">OK"))
 		{
 			Log log = new Log();
-			log.setAcao(mensagem + " [Cliente: "+registro.getCliente().getNome()+" | Software: "+registro.getSoftware().getNome()+"]");
+			log.setAcao(mensagem + " [Cliente: "+reg.getCliente().getNome()+" | Software: "+reg.getSoftware().getNome()+"]");
 			log.setAutor(logado);
 			log.setData(null);
 			logsDao.adiciona(log);
@@ -251,7 +264,7 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("atualizarRegistro")
-	public String atualizarRegistro(Long id, HttpSession session, Model model)
+	public String atualizarRegistro(Long id, HttpSession session, Model model)//TODO fazer view
 	{
 		Registro registro = registrosDao.pegaRegistroPorId(id);
 		model.addAttribute("registro", registro);

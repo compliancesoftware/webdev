@@ -152,13 +152,13 @@ public class Registro
 	
 	public String getFmtValor()
 	{
-		String val = String.format("%0.2f", this.valor);
+		String val = String.format("%.2f", this.valor);
 		return val;
 	}
 	
 	public String getFmtValorComUnidade()
 	{
-		String val = String.format("%0.2f", this.valor);
+		String val = String.format("%.2f", this.valor);
 		return "R$"+val;
 	}
 
