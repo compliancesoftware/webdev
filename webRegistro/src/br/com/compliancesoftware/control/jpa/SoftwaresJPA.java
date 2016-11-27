@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
+import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.Software;
 
 /**
@@ -37,12 +38,36 @@ public class SoftwaresJPA implements SoftwaresDao
 		}
 	}
 
-	@Override
-	public String remove(Software software) 
+	/**
+	 * Verifica se o software em questão já está em uso
+	 * @return
+	 */
+	private boolean jaTemTransacoes(Long id)
 	{
-		Software remover = getSoftwareById(software.getId());
-		manager.remove(remover);
-		return "<strong>OK!</strong> Plano descadastrado!";
+		Query query = manager.createQuery("select r from Registro as r where r.software.id = :paramId");
+		query.setParameter("paramId", id);
+		
+		@SuppressWarnings("unchecked")
+		List<Registro> lista = query.getResultList();
+		if(lista != null && lista.size() > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public String remove(Long id) 
+	{
+		if(jaTemTransacoes(id))
+		{
+			return "<strong>Erro!</strong> Este Plano já está em uso!";
+		}
+		else
+		{
+			Software remover = getSoftwareById(id);
+			manager.remove(remover);
+			return "<strong>OK!</strong> Plano descadastrado!";
+		}
 	}
 
 	@Override
@@ -57,8 +82,8 @@ public class SoftwaresJPA implements SoftwaresDao
 	@Override
 	public List<Software> listaPorNome(String nome) 
 	{
-		String name = "%"+nome+"%";
-		Query query = manager.createQuery("select s from Software as s where s.nome like :paramNome");
+		String name = "%"+nome.toUpperCase()+"%";
+		Query query = manager.createQuery("select s from Software as s where upper(s.nome) like :paramNome");
 		query.setParameter("paramNome", name);
 		@SuppressWarnings("unchecked")
 		List<Software> lista = query.getResultList();
@@ -100,7 +125,7 @@ public class SoftwaresJPA implements SoftwaresDao
 			Software soft = new Software();
 			soft.setAtivo(true);
 			soft.setNome("webdelivery30");
-			soft.setValor(100.00);
+			soft.setValor("100.00");
 			
 			manager.persist(soft);
 		}

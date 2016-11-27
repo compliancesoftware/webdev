@@ -12,7 +12,7 @@ import br.com.compliancesoftware.model.Software;
 public interface SoftwaresDao 
 {
 	public String adiciona(Software software);
-	public String remove(Software software);
+	public String remove(Long id);
 	public List<Software> lista();
 	public List<Software> listaPorNome(String nome);
 	public Software getSoftwareById(Long id);

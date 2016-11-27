@@ -63,12 +63,33 @@ public class Software
 	public double getValor() {
 		return this.valor;
 	}
+	
+	public String getFmtValor()
+	{
+		String val = String.format("%.2f", this.valor);
+		return val;
+	}
+	
+	public String getFmtValorComUnidade()
+	{
+		String val = String.format("%.2f", this.valor);
+		return "R$"+val;
+	}
 
 	/**
 	 * @param Nova configuração para valor
 	 */
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValor(String valor) 
+	{
+		try
+		{
+			this.valor = Double.parseDouble(valor);
+		}
+		catch(Exception e)
+		{
+			this.valor = 0;
+			e.printStackTrace();
+		}
 	}
 
 	/**

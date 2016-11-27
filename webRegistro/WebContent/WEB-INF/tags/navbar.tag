@@ -32,6 +32,7 @@
      		<li><a href="home">Home</a></li>
      	</c:if>
          <c:if test="${permissao eq 'Administrador'}">
+         	<li><a href="gerenciarSoftwares">Softwares</a></li>
          	<li><a href="gerenciarClientes">Clientes</a></li>
          	<li><a href="gerenciarRegistros">Registros</a></li>
          </c:if>

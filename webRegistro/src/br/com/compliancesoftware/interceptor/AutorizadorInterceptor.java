@@ -42,6 +42,10 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	    	  requests.add("atualizaRegistro");
 	    	  requests.add("removerRegistro");
 	    	  requests.add("pesquisarRegistros");
+	    	  requests.add("gerenciarSoftwares");
+	    	  requests.add("cadastrarSoftware");
+	    	  requests.add("cadastraSoftware");
+	    	  requests.add("removerSoftware");
 	    	  
 	    	  for(String s:requests)
 	    	  {
