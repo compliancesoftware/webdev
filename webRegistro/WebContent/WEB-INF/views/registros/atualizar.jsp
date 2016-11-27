@@ -43,6 +43,7 @@
                         		<br>
                         		Software:
                         		<select id="software" name="software"  class="form-control" onchange="atualizaValor()">
+                        			<option id="${regitro.software.id}" value="${registro.software.nome}" >${registro.software.nome}</option>
                         			<c:forEach var="soft" items="${listaSoftwares}">
                         				<option id="${soft.id}" value="${soft.nome}" >${soft.nome}</option>
                         			</c:forEach>
@@ -52,19 +53,34 @@
                         		</c:forEach>
                         		<br>
                         		Valor
-                        		<input id="valor" type="text" name="valor"  class="form-control" readonly>
+                        		<input id="valor" type="text" name="valor" class="form-control" readonly>
                         		<br>
                         		Desconto
                         		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
                         			<c:forEach var="desc" items="${listaPercentual}">
-                        				<option id="${desc.valor}" value="${desc.valor}" >${desc.valorAsString}%</option>
+                        				<option id="${desc.valor}" value="${desc.valorAsString}" >${desc.valorAsString}%</option>
                         			</c:forEach>
                         		</select>
                         		<br>
+                        		Data de Validade:
+                        		<input type="text" id="validade" name="validade" class="form-control" placeholder="Validade" value="${registro.fmtValidade}" readonly required/>
+                        		<br>
                         		Observações:
-                        		<textarea rows="3" cols="5" name="observacoes" class="form-control" placeholder="Observações"></textarea>
+                        		<textarea rows="3" cols="5" name="observacoes" class="form-control" placeholder="Observações">${registro.observacoes}</textarea>
                             	<br>
-                            	<button class="btn-block btn-white form-control info" type="submit">Registrar Novo Software</button>
+                            	Ativo:
+                            	<select id="ativo" name="ativo" class="form-control">
+                            		<c:if test="${registro.ativo eq true}">
+                            			<option value="true">Sim</option>
+                            			<option value="false">Não</option>
+                            		</c:if>
+                            		<c:if test="${registro.ativo eq false}">
+                            			<option value="false">Não</option>
+                            			<option value="true">Sim</option>
+                            		</c:if>
+                            	</select>
+                            	<br>
+                            	<button class="btn-block btn-white form-control info" type="submit">Atualizar Registro</button>
                         	</form>
                         </div>
                         <div class="col-md-2"></div>
@@ -78,6 +94,7 @@
 </div>
 <!-- /body -->
 <mtag:cssJsFoot/>
+<mtag:campoData campo="validade"/>
 <script type="text/javascript">
 function pesquisa(){
 	var pesquisa = $("#pesquisaClientes").val();
@@ -87,10 +104,6 @@ function pesquisa(){
 				$("#cliente-selector").html(resposta);
 			});
 }
-
-var id = $("#software").val();
-var pValor = $("#"+id).val();
-$("#valor").val(pValor);
 
 function atualizaValor(){
 	var id_escolhido = $("#software").val();
@@ -111,6 +124,9 @@ function atualizaDesconto(){
 	var strvalor = ""+Number(valor).toFixed(2);
 	$("#valor").val(strvalor);
 }
+$(document).ready(function(){
+	atualizaValor();
+});
 </script>
 </body>
 </html>

@@ -75,6 +75,16 @@ public class SystemController
 	{
 		int alertas = alertasDao.conta();
 		
+		long atualizados = registrosDao.atualiza();
+		
+		if(atualizados > 0)
+		{
+			if(mensagem != null)
+				mensagem += "<br><strong>Info!</strong> Registros revogados por validade expirada = "+atualizados;
+			else
+				mensagem = "<br><strong>Info!</strong> Registros revogados por validade expirada = "+atualizados;
+		}
+		
 		List<GraficoMes> gCadastradosMes = pegaCadastradosNoMes();
 		List<GraficoMes> gRegistradosMes = pegaRegistradosNoMes();
 		GraficoClientes clientes = pegaClientesAtrasadosEmDia();
@@ -146,7 +156,7 @@ public class SystemController
 	{
 		GraficoClientes clientes = new GraficoClientes();
 		clientes.setAtrasados(registrosDao.listaAtrasados());
-		clientes.setEmDia(registrosDao.listaAtrasados());
+		clientes.setEmDia(registrosDao.listaEmDia());
 		clientes.calcula();
 		
 		return clientes;

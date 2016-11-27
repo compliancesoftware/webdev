@@ -10,6 +10,8 @@ import java.util.Calendar;
  */
 public class RegistroAux 
 {
+	private long id;
+	
 	private long cliente;
 	
 	private String software;
@@ -23,6 +25,16 @@ public class RegistroAux
 	private String observacoes;
 	
 	private Calendar validade;
+	
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+	
+	public long getId()
+	{
+		return this.id;
+	}
 	
 	public void setValidade(String data)
 	{
@@ -92,7 +104,7 @@ public class RegistroAux
 		}
 	}
 
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 

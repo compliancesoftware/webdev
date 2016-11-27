@@ -16,10 +16,10 @@
             	      <td>${registro.fmtValidade}</td>
             	      <td>${registro.fmtValorComUnidade}</td>
             	      <td>
-            	         <a href="atualizarRegistro?id=${cliente.id}">Atualizar</a>
+            	         <a href="atualizarRegistro?id=${registro.id}">Atualizar</a>
             	         <br>
-            	         <a href="#" data-toggle="modal" data-target="#myModal${cliente.id}">Remover</a>
-            	         <div id="myModal${cliente.id}" class="modal fade" role="dialog">
+            	         <a href="#" data-toggle="modal" data-target="#myModal${registro.id}">Remover</a>
+            	         <div id="myModal${registro.id}" class="modal fade" role="dialog">
   						 	<div class="modal-dialog">
   						 		<div class="modal-content">
   						 			<div class="modal-header">
@@ -30,7 +30,7 @@
   						 				<p>Deseja realmente remover este registro?.</p>
   						 			</div>
   						 			<div class="modal-footer">
-  						 				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="remove(${cliente.id})">Sim</button>
+  						 				<a href="removerRegistro?id=${registro.id}"><button class="btn btn-info">Sim</button></a>
   						 			</div>
   						 		</div>
   						 	</div>

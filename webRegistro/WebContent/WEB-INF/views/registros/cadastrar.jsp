@@ -51,7 +51,7 @@
                         		</c:forEach>
                         		<br>
                         		Valor
-                        		<input id="valor" type="text" name="valor"  class="form-control" readonly>
+                        		<input id="valor" type="text" name="valor" class="form-control" readonly required>
                         		<br>
                         		Desconto
                         		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
@@ -59,6 +59,9 @@
                         				<option id="${desc.valor}" value="${desc.valor}" >${desc.valorAsString}%</option>
                         			</c:forEach>
                         		</select>
+                        		<br>
+                        		Data de Validade:
+                        		<input type="text" id="validade" name="validade" class="form-control" placeholder="Validade" readonly required/>
                         		<br>
                         		Observações:
                         		<textarea rows="3" cols="5" name="observacoes" class="form-control" placeholder="Observações"></textarea>
@@ -77,6 +80,7 @@
 </div>
 <!-- /body -->
 <mtag:cssJsFoot/>
+<mtag:campoData campo="validade"/>
 <script type="text/javascript">
 function pesquisa(){
 	var pesquisa = $("#pesquisaClientes").val();

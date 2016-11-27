@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.compliancesoftware.control.dao.AlertasDao;
 import br.com.compliancesoftware.control.dao.LogsDao;
 import br.com.compliancesoftware.control.dao.PerfisDao;
-import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
@@ -41,10 +40,6 @@ public class LoginController
 	@Qualifier("softwaresJPA")
 	@Autowired
 	private SoftwaresDao softwaresDao;
-	
-	@Qualifier("registrosJPA")
-	@Autowired
-	private RegistrosDao registrosDao;
 	
 	@Qualifier("logsJPA")
 	@Autowired
@@ -124,13 +119,6 @@ public class LoginController
 		Perfil logado = (Perfil)session.getAttribute("logado");
 		if(logado != null)
 		{
-			long atualizados = registrosDao.atualiza();
-			
-			if(atualizados > 0)
-			{
-				SystemController.setMsg("<strong>Erro!</strong> Registros revogados por validade expirada = "+atualizados);
-			}
-			
 			SystemController.setLogado(logado);
 			return "forward:home";
 		}

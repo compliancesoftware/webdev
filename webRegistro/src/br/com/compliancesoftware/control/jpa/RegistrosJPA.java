@@ -74,8 +74,7 @@ public class RegistrosJPA implements RegistrosDao
 	@Override
 	public String altera(Registro registro) 
 	{
-		Registro alterar = pegaRegistroPorId(registro.getId());
-		manager.merge(alterar);
+		manager.merge(registro);
 		return "<strong>OK!</strong> Registro atualizado com êxito!";
 	}
 	
@@ -270,12 +269,7 @@ public class RegistrosJPA implements RegistrosDao
 	{
 		Query query = manager.createQuery("select r from Registro as r where r.id = :paramId");
 		query.setParameter("paramId", id);
-		@SuppressWarnings("unchecked")
-		List<Registro> lista = query.getResultList();
-		if(lista == null || lista.size() < 1)
-			return null;
-		else
-			return lista.get(0);
+		return (Registro)query.getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -349,9 +343,10 @@ public class RegistrosJPA implements RegistrosDao
 	@Override
 	public long atualiza() 
 	{
-		Query query = manager.createQuery("update Registro as r set r.ativo = :paramAtivo where r.validade < :paramValidade");
+		Query query = manager.createQuery("update Registro as r set r.ativo = :paramAtivo where r.validade < :paramValidade and r.ativo = :paramAtual");
 		query.setParameter("paramAtivo", false);
 		query.setParameter("paramValidade", agora());
+		query.setParameter("paramAtual", true);
 		long atualizados = (long)query.executeUpdate();
 		return atualizados;
 	}
@@ -371,6 +366,22 @@ public class RegistrosJPA implements RegistrosDao
 			return lista;
 		else
 			return null;
+	}
+
+	/**
+	 * Método usado para localizar um registro de um determinado cliente para um determinado software
+	 */
+	@Override
+	public Registro localiza(String cliente, String software) 
+	{
+		System.out.println("Cliente: "+cliente);
+		System.out.println("Software: "+software);
+		
+		Query query = manager.createQuery("select r from Registro as r where r.cliente.nome = :paramCliente and r.software.nome = :paramSoftware");
+		query.setParameter("paramCliente", cliente);
+		query.setParameter("paramSoftware", software);
+		
+		return (Registro)query.getSingleResult();
 	}
 	
 }

@@ -1,9 +1,11 @@
 package br.com.compliancesoftware.control.Controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.com.compliancesoftware.control.dao.AlertasDao;
 import br.com.compliancesoftware.control.dao.ClientesDao;
@@ -27,6 +32,7 @@ import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.Software;
 import br.com.compliancesoftware.model.auxModels.Percentual;
 import br.com.compliancesoftware.model.auxModels.RegistroAux;
+import br.com.compliancesoftware.model.auxModels.RegistroREST;
 
 /**
  * Controller de registros (acessível apenas por perfis ADM)
@@ -253,7 +259,7 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("atualizarRegistro")
-	public String atualizarRegistro(Long id, HttpSession session, Model model)//TODO fazer view e as views de controle e cadastro de software
+	public String atualizarRegistro(Long id, HttpSession session, Model model)
 	{
 		Registro registro = registrosDao.pegaRegistroPorId(id);
 		model.addAttribute("registro", registro);
@@ -267,8 +273,19 @@ public class RegistrosController
 		model.addAttribute("mensagem",mensagem);
 		mensagem = null;
 		
-		List<Registro> listaRegistros = registrosDao.lista();
-		model.addAttribute("listaRegistros",listaRegistros);
+		List<Cliente> listaClientes = clientesDao.listaClientes();
+		model.addAttribute("listaClientes",listaClientes);
+		
+		List<Software> listaSoftwares = softwaresDao.lista();
+		model.addAttribute("listaSoftwares",listaSoftwares);
+		
+		Percentual percentual = new Percentual();
+		percentual.setValor(registro.getDesconto());
+		ArrayList<Percentual> listaPercentual = new ArrayList<Percentual>();
+		listaPercentual.add(percentual);
+		ArrayList<Percentual> lista = Percentual.getListaZeroACem();
+		listaPercentual.addAll(lista);
+		model.addAttribute("listaPercentual",listaPercentual);
 		
 		return "registros/atualizar";
 	}
@@ -280,20 +297,33 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("atualizaRegistro")
-	public String atualizaRegistro(Registro registro, HttpSession session)
+	public String atualizaRegistro(RegistroAux registro, HttpSession session)
 	{
 		Perfil logado = (Perfil)session.getAttribute("logado");
 		Calendar agora = Calendar.getInstance();
 		agora.setTimeInMillis(System.currentTimeMillis());
 		
-		registro.setQuemIncluiu(logado);
-		registro.setIncluido(agora);
+		Registro reg = new Registro();
+		reg.setId(registro.getId());
+		reg.setAtivo(registro.getAtivo());
+		Cliente cliente = clientesDao.pegaClientePorId(registro.getCliente());
+		reg.setCliente(cliente);
+		reg.setDesconto(registro.getDesconto());
+		Calendar hoje = Calendar.getInstance();
+		hoje.setTimeInMillis(System.currentTimeMillis());
+		reg.setIncluido(hoje);
+		reg.setObservacoes(registro.getObservacoes());
+		reg.setQuemIncluiu(logado);
+		Software software = softwaresDao.getSoftwareByNome(registro.getSoftware());
+		reg.setSoftware(software);
+		reg.setValidade(registro.getValidade());
+		reg.setValor(registro.getValor());
 		
-		mensagem = registrosDao.altera(registro);
+		mensagem = registrosDao.altera(reg);
 		if(mensagem.contains(">OK"))
 		{
 			Log log = new Log();
-			log.setAcao(mensagem + " [Cliente: "+registro.getCliente().getNome()+" | Id: "+registro.getId()+"]");
+			log.setAcao(mensagem + " [Cliente: "+reg.getCliente().getNome()+" | Id: "+reg.getId()+"]");
 			log.setAutor(logado);
 			log.setData(null);
 			logsDao.adiciona(log);
@@ -309,12 +339,9 @@ public class RegistrosController
 	 * @return
 	 */
 	@RequestMapping("removerRegistro")
-	public String removerRegistro(Long id, HttpSession session)
+	public String removerRegistro(Long id, HttpSession session, Model model)
 	{
 		Perfil logado = (Perfil)session.getAttribute("logado");
-		Calendar agora = Calendar.getInstance();
-		agora.setTimeInMillis(System.currentTimeMillis());
-		
 		Registro registro = registrosDao.pegaRegistroPorId(id);
 		
 		mensagem = registrosDao.remove(registro);
@@ -333,13 +360,34 @@ public class RegistrosController
 	/**
 	 * Consulta o Status de um determinado registro para determinado software.
 	 * retorna em forma de XML escrito através de um PrintWriter usando XStream
+	 * 
+	 * Exemplo de consulta:
+	 * http://localhost/webRegistro/consultaRegistro?cliente=Compliance%20Software%20LTDA&software=webdelivery30
 	 * @param cliente
 	 * @param software
 	 */
 	@RequestMapping("consultaRegistro")
-	public void consultaRegistro(String cliente, String software)
+	public void consultaRegistro(String cliente, String software, HttpServletResponse response)
 	{
-		//TODO
+		try
+		{
+			Registro reg = registrosDao.localiza(cliente, software);
+			RegistroREST registro = new RegistroREST(reg);
+			
+			XStream stream = new XStream(new DomDriver());
+			stream.alias("registro", RegistroREST.class);
+			String xml = stream.toXML(registro);
+			
+			PrintWriter writer = response.getWriter();
+			
+			writer.println(xml);
+			
+			writer.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 }

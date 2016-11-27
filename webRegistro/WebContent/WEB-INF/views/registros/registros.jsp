@@ -94,10 +94,5 @@
 			});
 	}
 </script>
-<script type="text/javascript">
-	function remove(cliente){
-		$.get("removerRegistro",{'id':cliente});
-	}
-</script>
 </body>
 </html>

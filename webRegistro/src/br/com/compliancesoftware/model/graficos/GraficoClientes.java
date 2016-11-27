@@ -77,7 +77,7 @@ public class GraficoClientes implements Serializable
 		double total = atrasados + emDia;
 		
 		double pAtrasados = (atrasados/total)*100.00;
-		double pEmDia = (emDia/total)*100.00;
+		double pEmDia = 100.00 - pAtrasados;
 		
 		this.atrasadosPercentual = String.format("%.2f", pAtrasados);
 		this.emDiaPercentual = String.format("%.2f", pEmDia);
