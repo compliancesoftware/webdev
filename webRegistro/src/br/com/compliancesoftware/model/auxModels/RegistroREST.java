@@ -1,7 +1,5 @@
 package br.com.compliancesoftware.model.auxModels;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import br.com.compliancesoftware.model.Registro;
 
 /**
@@ -9,13 +7,13 @@ import br.com.compliancesoftware.model.Registro;
  * @author Compliance Software *by Douglas Fernandes*
  *
  */
-@XStreamAlias("registro")
 public class RegistroREST 
 {
 	private String cliente;
 	private String software;
 	private String valor;
 	private String validade;
+	private String plano;
 	private boolean ativo;
 	
 	public RegistroREST(Registro registro)
@@ -24,9 +22,36 @@ public class RegistroREST
 		this.software = registro.getSoftware().getNome();
 		this.valor = registro.getFmtValorComUnidade();
 		this.validade = registro.getFmtValidade();
+		int plano = registro.getPlano();
+		if(plano == 1)
+			this.plano = "Mensal";
+		else if(plano == 3)
+			this.plano = "Trimestral";
+		else if(plano == 6)
+			this.plano = "Semestral";
+		else if(plano == 12)
+			this.plano = "Anual";
+		
 		this.ativo = registro.getAtivo();
 	}
 
+	public void setPlano(int plano)
+	{
+		if(plano == 1)
+			this.plano = "Mensal";
+		else if(plano == 3)
+			this.plano = "Trimestral";
+		else if(plano == 6)
+			this.plano = "Semestral";
+		else if(plano == 12)
+			this.plano = "Anual";
+	}
+	
+	public String getPlano()
+	{
+		return this.plano;
+	}
+	
 	public String getValidade() {
 		return validade;
 	}

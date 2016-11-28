@@ -16,8 +16,7 @@ import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
 import br.com.compliancesoftware.model.Registro;
 
-/**n
- * Implementação do gerenciador do banco de dados na tabela registros.
+/**Implementação do gerenciador do banco de dados na tabela registros.
  * @author Compliance Software (by Douglas Fernandes)
  *
  */
@@ -74,8 +73,22 @@ public class RegistrosJPA implements RegistrosDao
 	@Override
 	public String altera(Registro registro) 
 	{
-		manager.merge(registro);
-		return "<strong>OK!</strong> Registro atualizado com êxito!";
+		Query query = manager.createQuery("select r from Registro as r where r.cliente.id = :paramCliente and r.software.id = :paramSoftware and r.id != :paramId");
+		query.setParameter("paramCliente", registro.getCliente().getId());
+		query.setParameter("paramSoftware", registro.getSoftware().getId());
+		query.setParameter("paramId", registro.getId());
+		
+		@SuppressWarnings("unchecked")
+		List<Registro> lista = query.getResultList();
+		if(lista != null && lista.size() > 0)
+		{
+			return "<strong>Erro!</strong> Já há um registro deste software para este cliente!";
+		}
+		else
+		{
+			manager.merge(registro);
+			return "<strong>OK!</strong> Registro atualizado com êxito!";
+		}
 	}
 	
 	@Override
@@ -205,6 +218,17 @@ public class RegistrosJPA implements RegistrosDao
 			param.put("tipo", "boolean");
 			param.put("nome", "paramAtivo");
 			param.put("valor", ativado);
+			params.add(param);
+		}
+		
+		int plano = filtro.getPlano();
+		if(plano > 0 && plano < 13)
+		{
+			q += " and r.plano = :paramPlano";
+			param = new HashMap<String,Object>();
+			param.put("tipo", "int");
+			param.put("nome", "paramPlano");
+			param.put("valor", plano);
 			params.add(param);
 		}
 		

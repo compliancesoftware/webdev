@@ -48,6 +48,15 @@
                         				<option id="${soft.id}" value="${soft.nome}" >${soft.nome}</option>
                         			</c:forEach>
                         		</select>
+                        		<br>
+                        		Plano:
+                        		<select id="plano" name="plano" class="form-control" onchange="atualizaValor()">
+                        			<option id="atual" value="${registro.plano}">${registro.fmtPlano}</option>
+                        			<option id="mensal" value="1">Mensal</option>
+                        			<option id="trimestral" value="3">Trimestral</option>
+                        			<option id="semestral" value="6">Semestral</option>
+                        			<option id="anual" value="12">Anual</option>
+                        		</select>
                         		<c:forEach var="soft" items="${listaSoftwares}">
                         			<input type="hidden" id="${soft.nome}" value="${soft.valor}">
                         		</c:forEach>
@@ -56,7 +65,7 @@
                         		<input id="valor" type="text" name="valor" class="form-control" readonly>
                         		<br>
                         		Desconto
-                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
+                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaValor()">
                         			<c:forEach var="desc" items="${listaPercentual}">
                         				<option id="${desc.valor}" value="${desc.valorAsString}" >${desc.valorAsString}%</option>
                         			</c:forEach>

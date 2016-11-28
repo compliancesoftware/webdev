@@ -59,6 +59,36 @@ public class Registro
 	@Column(name = "observacoes")
 	private String observacoes;
 	
+	@Column(name = "plano", nullable = false)
+	private int plano;
+	
+	public int getPlano() {
+		return plano;
+	}
+	
+	public String getFmtPlano(){
+		if(this.plano == 1)
+		{
+			return "Mensal";
+		}
+		else if(this.plano == 3)
+		{
+			return "Trimestral";
+		}
+		else if(this.plano == 6)
+		{
+			return "Semestral";
+		}
+		else
+		{
+			return "Anual";
+		}
+	}
+
+	public void setPlano(int plano) {
+		this.plano = plano;
+	}
+
 	/**
 	 * @return Retorna incluido
 	 */

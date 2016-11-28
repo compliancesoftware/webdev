@@ -26,6 +26,16 @@ public class RegistroAux
 	
 	private Calendar validade;
 	
+	private int plano; //varia de 0-mensal | 1-trimestral | 2-semestral | 3-anual
+	
+	public int getPlano() {
+		return plano;
+	}
+
+	public void setPlano(int plano) {
+		this.plano = plano;
+	}
+
 	public void setId(long id)
 	{
 		this.id = id;

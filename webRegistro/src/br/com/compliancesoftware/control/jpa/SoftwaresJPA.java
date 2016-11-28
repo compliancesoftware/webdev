@@ -124,7 +124,7 @@ public class SoftwaresJPA implements SoftwaresDao
 		{
 			Software soft = new Software();
 			soft.setAtivo(true);
-			soft.setNome("webdelivery30");
+			soft.setNome("webdelivery");
 			soft.setValor("100.00");
 			
 			manager.persist(soft);

@@ -50,11 +50,19 @@
                         			<input type="hidden" id="${soft.nome}" value="${soft.valor}">
                         		</c:forEach>
                         		<br>
-                        		Valor
+                        		Plano:
+                        		<select id="plano" name="plano" class="form-control" onchange="atualizaValor()">
+                        			<option id="mensal" value="1">Mensal</option>
+                        			<option id="trimestral" value="3">Trimestral</option>
+                        			<option id="semestral" value="6">Semestral</option>
+                        			<option id="anual" value="12">Anual</option>
+                        		</select>
+                        		<br>
+                        		Valor:
                         		<input id="valor" type="text" name="valor" class="form-control" readonly required>
                         		<br>
                         		Desconto
-                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
+                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaValor()">
                         			<c:forEach var="desc" items="${listaPercentual}">
                         				<option id="${desc.valor}" value="${desc.valor}" >${desc.valorAsString}%</option>
                         			</c:forEach>
@@ -98,18 +106,10 @@ $("#valor").val(pValor);
 function atualizaValor(){
 	var id_escolhido = $("#software").val();
 	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
+	var plano = $("#plano").val();
+	valor = valor * plano;
 	var desconto = Number($("#desconto").val()).toFixed(2);
 	desconto = desconto/100;
-	valor = valor - (valor * desconto);
-	var strvalor = ""+Number(valor).toFixed(2);
-	$("#valor").val(strvalor);
-}
-
-function atualizaDesconto(){
-	var desconto = Number($("#desconto").val()).toFixed(2);
-	desconto = desconto/100;
-	var id_escolhido = $("#software").val();
-	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
 	valor = valor - (valor * desconto);
 	var strvalor = ""+Number(valor).toFixed(2);
 	$("#valor").val(strvalor);

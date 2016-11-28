@@ -14,6 +14,13 @@ public class FiltroRegistro
 	public static final int ATIVOS = 1;
 	public static final int DESATIVADOS = 0;
 	
+	public static final int TODOS = 0;
+	public static final int MENSAL = 1;
+	public static final int TRIMESTRAL = 3;
+	public static final int SEMESTRAL = 6;
+	public static final int ANUAL = 12;
+	
+	
 	private String cliente = null;
 	
 	private String software = null;
@@ -26,6 +33,8 @@ public class FiltroRegistro
 	private Calendar validadeFim = null;
 	
 	private int ativo = AMBOS;
+	
+	private int plano = TODOS;
 	
 	/**
 	 * @return Retorna ativo
@@ -134,6 +143,12 @@ public class FiltroRegistro
 			this.validadeFim = null;
 			e.printStackTrace();
 		}
+	}
+	public int getPlano() {
+		return plano;
+	}
+	public void setPlano(int plano) {
+		this.plano = plano;
 	}
 	
 }
