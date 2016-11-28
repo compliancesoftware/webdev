@@ -237,6 +237,7 @@ public class RegistrosController
 		reg.setSoftware(software);
 		reg.setValidade(registro.getValidade());
 		reg.setValor(registro.getValor());
+		reg.setPlano(""+registro.getPlano());
 		
 		mensagem = registrosDao.adiciona(reg);
 		if(mensagem.contains(">OK"))
@@ -318,6 +319,7 @@ public class RegistrosController
 		reg.setSoftware(software);
 		reg.setValidade(registro.getValidade());
 		reg.setValor(registro.getValor());
+		reg.setPlano(""+registro.getPlano());
 		
 		mensagem = registrosDao.altera(reg);
 		if(mensagem.contains(">OK"))

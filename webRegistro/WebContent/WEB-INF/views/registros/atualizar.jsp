@@ -117,6 +117,8 @@ function pesquisa(){
 function atualizaValor(){
 	var id_escolhido = $("#software").val();
 	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
+	var plano = $("#plano").val();
+	valor = valor * plano;
 	var desconto = Number($("#desconto").val()).toFixed(2);
 	desconto = desconto/100;
 	valor = valor - (valor * desconto);
@@ -124,17 +126,8 @@ function atualizaValor(){
 	$("#valor").val(strvalor);
 }
 
-function atualizaDesconto(){
-	var desconto = Number($("#desconto").val()).toFixed(2);
-	desconto = desconto/100;
-	var id_escolhido = $("#software").val();
-	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
-	valor = valor - (valor * desconto);
-	var strvalor = ""+Number(valor).toFixed(2);
-	$("#valor").val(strvalor);
-}
 $(document).ready(function(){
-	atualizaValor();
+	atualiza();
 });
 </script>
 </body>

@@ -32,8 +32,16 @@ public class RegistroAux
 		return plano;
 	}
 
-	public void setPlano(int plano) {
-		this.plano = plano;
+	public void setPlano(String plano) {
+		try
+		{
+			this.plano = Integer.parseInt(plano);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			this.plano = 1;
+		}
 	}
 
 	public void setId(long id)
