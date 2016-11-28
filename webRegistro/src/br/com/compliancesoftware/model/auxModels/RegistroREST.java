@@ -22,15 +22,7 @@ public class RegistroREST
 		this.software = registro.getSoftware().getNome();
 		this.valor = registro.getFmtValorComUnidade();
 		this.validade = registro.getFmtValidade();
-		int plano = registro.getPlano();
-		if(plano == 1)
-			this.plano = "Mensal";
-		else if(plano == 3)
-			this.plano = "Trimestral";
-		else if(plano == 6)
-			this.plano = "Semestral";
-		else if(plano == 12)
-			this.plano = "Anual";
+		this.plano = registro.getFmtPlano();
 		
 		this.ativo = registro.getAtivo();
 	}

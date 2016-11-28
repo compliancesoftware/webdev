@@ -8,6 +8,7 @@
             	        <th scope="col">Software</th>
       					<th scope="col">Validade</th>
       					<th scope="col">Valor</th>
+      					<th scope="col">Plano</th>
     				</tr>
             	    <c:forEach var="registro" items="${listaRegistros}">
             	     <tr>
@@ -15,6 +16,7 @@
             	      <td>${registro.software.nome}</td>
             	      <td>${registro.fmtValidade}</td>
             	      <td>${registro.fmtValorComUnidade}</td>
+            	      <td>${registro.fmtPlano}</td>
             	      <td>
             	         <a href="atualizarRegistro?id=${registro.id}">Atualizar</a>
             	         <br>
