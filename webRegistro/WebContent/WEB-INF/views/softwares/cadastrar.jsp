@@ -9,8 +9,8 @@
 <mtag:meta/>
 
 <mtag:favicon/>
-<!-- TODO continuar -->
-<title>WebRegistro - Registrar Software</title>
+
+<title>WebRegistro - Cadastrar Software</title>
 
 <mtag:cssJsHead/>
 
@@ -26,47 +26,21 @@
             <div id="form" class="panel panel-default nav-padded">
                 <mtag:mensagem msg="${mensagem}"/>
             	<div class="panel-heading text-center">
-                	<h3>Registro de Software para Cliente</h3>
+                	<h3>Cadastro de Software</h3>
                 </div>
             	<div class="panel-body">
                 	<div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                        	<form class="form-group" method="post" action="cadastraRegistro">
+                        	<form class="form-group" method="post" action="cadastraSoftware">
                         		<br>
-                        		Cliente:
-                        		<input id="pesquisaClientes" type="text" placeholder="Digite o nome de um cliente para facilitar a pesquisa"  class="form-control" onkeyup="pesquisa()">
-                        		<div id="cliente-selector">
-                        			<c:import url="cliente-selector.jsp"/>
-                        		</div>
-                        		<br>
-                        		Software:
-                        		<select id="software" name="software"  class="form-control" onchange="atualizaValor()">
-                        			<c:forEach var="soft" items="${listaSoftwares}">
-                        				<option id="${soft.id}" value="${soft.nome}" >${soft.nome}</option>
-                        			</c:forEach>
-                        		</select>
-                        		<c:forEach var="soft" items="${listaSoftwares}">
-                        			<input type="hidden" id="${soft.nome}" value="${soft.valor}">
-                        		</c:forEach>
+                        		Nome:
+                        		<input name="nome" type="text" placeholder="Nome do novo plano"  class="form-control" required>
                         		<br>
                         		Valor
-                        		<input id="valor" type="text" name="valor" class="form-control" readonly required>
+                        		<input id="valor" type="text" name="valor" class="form-control" placeholder="Valor em R$" required>
                         		<br>
-                        		Desconto
-                        		<select id="desconto" name="desconto" class="form-control" onchange="atualizaDesconto()">
-                        			<c:forEach var="desc" items="${listaPercentual}">
-                        				<option id="${desc.valor}" value="${desc.valor}" >${desc.valorAsString}%</option>
-                        			</c:forEach>
-                        		</select>
-                        		<br>
-                        		Data de Validade:
-                        		<input type="text" id="validade" name="validade" class="form-control" placeholder="Validade" readonly required/>
-                        		<br>
-                        		Observações:
-                        		<textarea rows="3" cols="5" name="observacoes" class="form-control" placeholder="Observações"></textarea>
-                            	<br>
-                            	<button class="btn-block btn-white form-control info" type="submit">Registrar Novo Software</button>
+                        		<button class="btn-block btn-white form-control info" type="submit">Cadastrar Novo Software</button>
                         	</form>
                         </div>
                         <div class="col-md-2"></div>
@@ -80,40 +54,6 @@
 </div>
 <!-- /body -->
 <mtag:cssJsFoot/>
-<mtag:campoData campo="validade"/>
-<script type="text/javascript">
-function pesquisa(){
-	var pesquisa = $("#pesquisaClientes").val();
-	$.post("pesquisarClienteParaRegistro",
-			{'pesquisa':pesquisa},
-			function (resposta){
-				$("#cliente-selector").html(resposta);
-			});
-}
-
-var id = $("#software").val();
-var pValor = $("#"+id).val();
-$("#valor").val(pValor);
-
-function atualizaValor(){
-	var id_escolhido = $("#software").val();
-	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
-	var desconto = Number($("#desconto").val()).toFixed(2);
-	desconto = desconto/100;
-	valor = valor - (valor * desconto);
-	var strvalor = ""+Number(valor).toFixed(2);
-	$("#valor").val(strvalor);
-}
-
-function atualizaDesconto(){
-	var desconto = Number($("#desconto").val()).toFixed(2);
-	desconto = desconto/100;
-	var id_escolhido = $("#software").val();
-	var valor = Number($("#"+id_escolhido).val()).toFixed(2);
-	valor = valor - (valor * desconto);
-	var strvalor = ""+Number(valor).toFixed(2);
-	$("#valor").val(strvalor);
-}
-</script>
+<mtag:inputdecimal campo="valor" tamanho="7"/>
 </body>
 </html>

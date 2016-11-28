@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<table class="text-center table table-responsive" summary="Tabela de clientes cadastrados no sistema">
+<table class="table table-responsive" summary="Tabela de clientes cadastrados no sistema">
   				<caption>Clientes cadastrados no sistema</caption>
   				<tbody>
     				<tr>

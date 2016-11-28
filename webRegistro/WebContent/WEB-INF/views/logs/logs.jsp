@@ -23,7 +23,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <mtag:mensagem msg="${mensagem}"/>
-    	<table class="text-center table table-responsive" summary="Tabela de registro de ações de perfis do sistema">
+    	<table class="table table-responsive" summary="Tabela de registro de ações de perfis do sistema">
          <caption>Logs do sistema (registro de ações dos perfis)</caption>
          <tbody>
          <tr>

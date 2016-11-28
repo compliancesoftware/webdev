@@ -48,7 +48,7 @@
 	function pesquisa(){
 		var pesquisa = $("#pesquisa").val();
 		
-		$.post("pesquisarRegistros",{'pesquisa':pesquisa},
+		$.post("pesquisarSoftwares",{'pesquisa':pesquisa},
 			function (resposta){
 				$("#tabela").html(resposta);
 			});

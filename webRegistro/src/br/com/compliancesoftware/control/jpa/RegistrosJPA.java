@@ -374,10 +374,7 @@ public class RegistrosJPA implements RegistrosDao
 	@Override
 	public Registro localiza(String cliente, String software) 
 	{
-		System.out.println("Cliente: "+cliente);
-		System.out.println("Software: "+software);
-		
-		Query query = manager.createQuery("select r from Registro as r where r.cliente.nome = :paramCliente and r.software.nome = :paramSoftware");
+		Query query = manager.createQuery("select r from Registro as r where r.cliente.codigo = :paramCliente and r.software.nome = :paramSoftware");
 		query.setParameter("paramCliente", cliente);
 		query.setParameter("paramSoftware", software);
 		

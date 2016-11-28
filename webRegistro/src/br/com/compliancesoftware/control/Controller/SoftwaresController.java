@@ -102,7 +102,7 @@ public class SoftwaresController
 		model.addAttribute("mensagem",mensagem);
 		mensagem = null;
 		
-		return "registros/cadastrar";
+		return "softwares/cadastrar";
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class SoftwaresController
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("cadastraRegistro")
+	@RequestMapping("cadastraSoftware")
 	public String cadastraSoftware(Software software, HttpSession session)
 	{
 		Perfil logado = (Perfil)session.getAttribute("logado");

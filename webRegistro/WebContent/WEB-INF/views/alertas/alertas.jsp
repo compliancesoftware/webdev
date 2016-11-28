@@ -23,7 +23,7 @@
   	<div class="col-md-1"></div>
     <div class="col-md-10">
         <mtag:mensagem msg="${mensagem}"/>
-    	<table class="text-center table table-responsive" summary="Alertas do sistema.">
+    	<table class="table table-responsive" summary="Alertas do sistema.">
   			<caption>Registro de alertas do sistema</caption>
   			<tbody>
     			<tr>

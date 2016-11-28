@@ -23,7 +23,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <mtag:mensagem msg="${mensagem}"/>
-    	<table class="text-center table table-responsive" summary="Tabela de perfis para serem gerenciados pelo Administrador">
+    	<table class="table table-responsive" summary="Tabela de perfis para serem gerenciados pelo Administrador">
          <caption>Perfis cadastrados no sistema</caption>
          <tbody>
          <tr>
