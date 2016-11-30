@@ -70,66 +70,13 @@ public class LoginController
 			}
 			else
 			{
-				Calendar hoje = Calendar.getInstance();
-				hoje.setTimeInMillis(System.currentTimeMillis());
-				String fmtHoje = FMT.getStringFromCalendar(hoje);
+				String codigo = empresaDao.getCodigo();
 				
-				Calendar proxima = empresaDao.getProximaVerificacao();
-				String fmtProxima = FMT.getStringFromCalendar(proxima);
-				
-				if(fmtHoje.equals(fmtProxima) || hoje.after(proxima))
+				RegistroREST reg = RegistroREST.unmarshall(codigo);
+				if(reg != null && reg.isAtivo())
 				{
-					String codigo = empresaDao.getCodigo();
+					empresaDao.redefineDataVerificacao(reg.getValidade());
 					
-					RegistroREST reg = RegistroREST.unmarshall(codigo);
-					if(reg != null && reg.isAtivo())
-					{
-						empresaDao.redefineDataVerificacao(reg.getValidade());
-						
-						Perfil perfil = new Perfil();
-						perfil.setNome(nome);
-						perfil.setSenha(senha);
-						
-						mensagem = "<strong>Logout!</strong> Sessão expirada!";
-						HashMap<String,Object> result = dao.login(perfil);
-						Perfil logado = (Perfil)result.get("Perfil");
-						String msg = (String)result.get("Mensagem");
-						
-						if(logado == null)
-						{
-							mensagem = msg;
-							return "redirect:login";
-						}
-						
-						if(msg.contains(">OK"))
-						{
-							Log log = new Log();
-							log.setAcao(msg + " ["+perfil.getNome()+"]");
-							log.setAutor(logado);
-							log.setData(null);
-							logsDao.adiciona(log);
-						}
-						
-						session.setAttribute("logado", logado);
-						SystemController.setLogado(logado);
-						return "redirect:home";
-					}
-					else
-					{
-						if(reg != null)
-						{
-							mensagem = "<strong>Erro!</strong> Seu serviço está suspenso, contacte o fornecedor do sistema.";
-							return "redirect:login";
-						}
-						else
-						{
-							mensagem = "<strong>Erro!</strong> Não foi possível consultar suas credenciais. Verifique sua conexão com a internet.";
-							return "redirect:login";
-						}
-					}
-				}
-				else
-				{
 					Perfil perfil = new Perfil();
 					perfil.setNome(nome);
 					perfil.setSenha(senha);
@@ -157,6 +104,59 @@ public class LoginController
 					session.setAttribute("logado", logado);
 					SystemController.setLogado(logado);
 					return "redirect:home";
+				}
+				else
+				{
+					if(reg != null)
+					{
+						mensagem = "<strong>Erro!</strong> Seu serviço está suspenso, contacte o fornecedor do sistema.";
+						return "redirect:login";
+					}
+					else
+					{
+						Calendar hoje = Calendar.getInstance();
+						hoje.setTimeInMillis(System.currentTimeMillis());
+						String fmtHoje = FMT.getStringFromCalendar(hoje);
+						
+						Calendar proxima = empresaDao.getProximaVerificacao();
+						String fmtProxima = FMT.getStringFromCalendar(proxima);
+						
+						if(fmtHoje.equals(fmtProxima) || hoje.after(proxima))
+						{
+							mensagem = "<strong>Erro!</strong> Não foi possível consultar suas credenciais. Verifique sua conexão com a internet.";
+							return "redirect:login";
+						}
+						else
+						{
+							Perfil perfil = new Perfil();
+							perfil.setNome(nome);
+							perfil.setSenha(senha);
+							
+							mensagem = "<strong>Logout!</strong> Sessão expirada!";
+							HashMap<String,Object> result = dao.login(perfil);
+							Perfil logado = (Perfil)result.get("Perfil");
+							String msg = (String)result.get("Mensagem");
+							
+							if(logado == null)
+							{
+								mensagem = msg;
+								return "redirect:login";
+							}
+							
+							if(msg.contains(">OK"))
+							{
+								Log log = new Log();
+								log.setAcao(msg + " ["+perfil.getNome()+"]");
+								log.setAutor(logado);
+								log.setData(null);
+								logsDao.adiciona(log);
+							}
+							
+							session.setAttribute("logado", logado);
+							SystemController.setLogado(logado);
+							return "redirect:home";
+						}
+					}
 				}
 			}
 		}
