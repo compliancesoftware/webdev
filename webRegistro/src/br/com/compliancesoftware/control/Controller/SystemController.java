@@ -21,6 +21,7 @@ import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.model.Alerta;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
+import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.graficos.GraficoClientes;
 import br.com.compliancesoftware.model.graficos.GraficoMes;
 
@@ -164,7 +165,11 @@ public class SystemController
 	private GraficoClientes pegaClientesAtrasadosEmDia()
 	{
 		GraficoClientes clientes = new GraficoClientes();
-		clientes.setAtrasados(registrosDao.listaAtrasados());
+		int atrasados = 0;
+		List<Registro> lista = registrosDao.listaAtrasados();
+		if(lista != null)
+			atrasados = lista.size();
+		clientes.setAtrasados(atrasados);
 		clientes.setEmDia(registrosDao.listaEmDia());
 		clientes.calcula();
 		

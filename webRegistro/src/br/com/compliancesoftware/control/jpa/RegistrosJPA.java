@@ -263,16 +263,16 @@ public class RegistrosJPA implements RegistrosDao
 	}
 
 	@Override
-	public int listaAtrasados() 
+	public List<Registro> listaAtrasados() 
 	{
 		Query query = manager.createQuery("select r from Registro as r where r.ativo = :paramAtivo");
 		query.setParameter("paramAtivo", false);
 		@SuppressWarnings("unchecked")
 		List<Registro> lista = query.getResultList();
 		if(lista != null && lista.size() > 0)
-			return lista.size();
+			return lista;
 		else
-			return 0;
+			return null;
 	}
 
 	@Override

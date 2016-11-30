@@ -46,6 +46,8 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	    	  requests.add("cadastrarSoftware");
 	    	  requests.add("cadastraSoftware");
 	    	  requests.add("removerSoftware");
+	    	  requests.add("enviarEmail");
+	    	  requests.add("enviaEmail");
 	    	  
 	    	  for(String s:requests)
 	    	  {

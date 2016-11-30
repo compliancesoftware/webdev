@@ -16,7 +16,7 @@
             	      <td>${cliente.nome}</td>
             	      <td>${cliente.fmtCodigo}</td>
             	      <td>${cliente.fmtContato}</td>
-            	      <td><a href="enviaEmail?email='${cliente.email}'">${cliente.email}</a></td>
+            	      <td><a href="enviarEmail?email='${cliente.email}'">${cliente.email}</a></td>
             	      <td>${cliente.responsavel}</td>
             	      <td>
             	         <a href="visualizarRegistros?id=${cliente.id}">Visualizar registros</a>

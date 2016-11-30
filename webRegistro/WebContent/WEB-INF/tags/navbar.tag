@@ -61,9 +61,7 @@
                  <span class="glyphicon glyphicon-envelope white"></span>
                     <span class="caret white"></span></a>
             <ul class="dropdown-menu" role="menu">
-               <li><a href="notificaAtrasados"><span class="glyphicon glyphicon-thumbs-down"></span> Notificar clientes atrasados</a></li>
-              <li class="divider"></li>
-              <li><a href="mensagens"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagens</a></li>
+               <li><a href="notificarAtrasados"><span class="glyphicon glyphicon-thumbs-down"></span> Notificar clientes atrasados</a></li>
             </ul>
          </li>
             <mtag:alertasLi alertas="${alertas}"/>

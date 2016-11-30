@@ -21,7 +21,7 @@ public interface RegistrosDao
 	public List<Registro> lista(FiltroRegistro filtro);
 	public int listaRegistrados(int mes);
 	public Registro localiza(String cliente, String software);
-	public int listaAtrasados();
+	public List<Registro> listaAtrasados();
 	public int listaEmDia();
 	public long atualiza();
 }
