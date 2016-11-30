@@ -21,7 +21,8 @@ public class RegistroREST
 	private String plano;
 	private boolean ativo;
 	
-	private static final String URL_CONNECTION = "http://localhost/webRegistro/consultaRegistro?cliente=08468331406&software=webdelivery";
+	private static final String URL_CONNECTION = "http://localhost/webRegistro/consultaRegistro?cliente=";
+	private static final String SOFTWARE = "webos";
 	
 	public void setPlano(int plano)
 	{
@@ -85,11 +86,11 @@ public class RegistroREST
 		this.ativo = ativo;
 	}
 	
-	public static RegistroREST unmarshall()
+	public static RegistroREST unmarshall(String codigo)
 	{
 		try
 		{
-			URL add = new URL(URL_CONNECTION);
+			URL add = new URL(URL_CONNECTION+codigo+"&software="+SOFTWARE);
 			HttpURLConnection con = (HttpURLConnection)add.openConnection();
 			InputStream content = con.getInputStream();
 			

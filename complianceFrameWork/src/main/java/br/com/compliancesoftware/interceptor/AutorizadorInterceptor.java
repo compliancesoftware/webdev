@@ -21,7 +21,13 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	      
 	      System.out.println("Solicitação: "+uri);
 	      
-	      if(uri.endsWith("login") || uri.endsWith("entrar") || uri.contains("resources") || uri.contains("tags/") || uri.contains("error"))
+	      if(uri.endsWith("login") || 
+	    		  uri.endsWith("entrar") || 
+	    		  uri.contains("resources") || 
+	    		  uri.contains("tags/") || 
+	    		  uri.contains("error") || 
+	    		  uri.contains("cadastrarEmpresa") ||
+	    		  uri.contains("cadastraEmpresa"))
 	      {
 	    	  return true;
 	      }

@@ -127,7 +127,7 @@ function atualizaValor(){
 }
 
 $(document).ready(function(){
-	atualiza();
+	atualizaValor();
 });
 </script>
 </body>

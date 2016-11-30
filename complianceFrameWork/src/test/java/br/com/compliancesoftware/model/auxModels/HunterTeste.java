@@ -15,13 +15,13 @@ public class HunterTeste
 	@Test
 	public void testaSeConverteCorretamente() 
 	{
-		assertEquals("MnwzNHwxMTZ8LTE1fDI5fC05MnwyNHw5N3w1N3wtOTh8MzJ8MTA0fC02MXwtODF8MjF8MTI1",Hunter.hunt(""));
+		assertEquals("MTE2fDMyfC03MHw3OXwtNTh8MzF8NTd8MTAwfC00NXw5NXwtNnwxNnwtNTN8LTEwN3wxMjZ8LTEx",Hunter.hunt("28/12/2016"));
 	}
 
 	@Test
 	public void testaSeDesconverteCorretamente()
 	{
-		assertEquals("",Hunter.hunted("MnwzNHwxMTZ8LTE1fDI5fC05MnwyNHw5N3w1N3wtOTh8MzJ8MTA0fC02MXwtODF8MjF8MTI1"));
+		assertEquals("28/12/2016",Hunter.hunted("MTE2fDMyfC03MHw3OXwtNTh8MzF8NTd8MTAwfC00NXw5NXwtNnwxNnwtNTN8LTEwN3wxMjZ8LTEx"));
 	}
 	
 }

@@ -18,6 +18,7 @@ import br.com.compliancesoftware.control.dao.ClientesDao;
 import br.com.compliancesoftware.control.dao.LogsDao;
 import br.com.compliancesoftware.control.dao.PerfisDao;
 import br.com.compliancesoftware.control.dao.RegistrosDao;
+import br.com.compliancesoftware.model.Alerta;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.graficos.GraficoClientes;
@@ -83,6 +84,14 @@ public class SystemController
 				mensagem += "<br><strong>Info!</strong> Registros revogados por validade expirada = "+atualizados;
 			else
 				mensagem = "<br><strong>Info!</strong> Registros revogados por validade expirada = "+atualizados;
+			
+			Alerta alerta = new Alerta();
+			Calendar hoje = Calendar.getInstance();
+			hoje.setTimeInMillis(System.currentTimeMillis());
+			alerta.setData(hoje);
+			alerta.setMensagem("<strong>Info!</strong> Registros revogados por validade expirada = "+atualizados);
+			alerta.setVisto(false);
+			alertasDao.notifica(alerta);
 		}
 		
 		List<GraficoMes> gCadastradosMes = pegaCadastradosNoMes();
