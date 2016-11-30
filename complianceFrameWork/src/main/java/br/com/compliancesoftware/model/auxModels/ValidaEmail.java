@@ -16,12 +16,10 @@ public class ValidaEmail
 			{
 				return true;
 			}
-			System.out.println("E-mail não contém extensão válida.");
 			return false;
 		}
 		else
 		{
-			System.out.println("E-mail não contém '@'");
 			return false;
 		}
 	}

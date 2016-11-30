@@ -42,7 +42,6 @@ public class VerificaId
 		{
 			if(cnpj.length() != 14)
 			{
-				System.out.println("Tamanho de cnpj errado! {atual: "+cnpj.length()+" | correto: 14}");
 				return false;
 			}
 			else
@@ -60,20 +59,17 @@ public class VerificaId
 					}
 					else
 					{
-						System.out.println("Erro ao calcular o terceiro digito de cnpj.");
 						return false;
 					}
 				}
 				else
 				{
-					System.out.println("O cnpj não contém apenas números!{código atual: "+cnpj+"}");
 					return false;
 				}
 			}
 		}
 		catch(Exception e)
 		{
-			System.out.println("Erro na execução do código de validação de cnpj.");
 			e.printStackTrace();
 			return false;
 		}
@@ -142,7 +138,6 @@ public class VerificaId
 			}	
 			else
 			{
-				System.out.println("O terceiro digito do cnpj deveria ser "+verificador+" porém, é "+resultado);
 				return false;
 			}
 		}

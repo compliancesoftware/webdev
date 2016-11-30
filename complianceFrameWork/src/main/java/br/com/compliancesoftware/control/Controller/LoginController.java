@@ -16,6 +16,7 @@ import br.com.compliancesoftware.control.dao.LogsDao;
 import br.com.compliancesoftware.control.dao.PerfisDao;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
+import br.com.compliancesoftware.model.auxModels.RegistroREST;
 
 /**
  * Controlador das páginas de login
@@ -51,38 +52,56 @@ public class LoginController
 	{
 		try
 		{
-			Perfil perfil = new Perfil();
-			perfil.setNome(nome);
-			perfil.setSenha(senha);
-			
-			mensagem = "<strong>Logout!</strong> Sessão expirada!";
-			HashMap<String,Object> result = dao.login(perfil);
-			Perfil logado = (Perfil)result.get("Perfil");
-			String msg = (String)result.get("Mensagem");
-			
-			if(logado == null)
+			RegistroREST reg = RegistroREST.unmarshall();
+			if(reg != null && reg.isAtivo())
 			{
-				mensagem = msg;
-				return "forward:login";
+				Perfil perfil = new Perfil();
+				perfil.setNome(nome);
+				perfil.setSenha(senha);
+				
+				mensagem = "<strong>Logout!</strong> Sessão expirada!";
+				HashMap<String,Object> result = dao.login(perfil);
+				Perfil logado = (Perfil)result.get("Perfil");
+				String msg = (String)result.get("Mensagem");
+				
+				if(logado == null)
+				{
+					mensagem = msg;
+					return "redirect:login";
+				}
+				
+				if(msg.contains(">OK"))
+				{
+					Log log = new Log();
+					log.setAcao(msg + " ["+perfil.getNome()+"]");
+					log.setAutor(logado);
+					log.setData(null);
+					logsDao.adiciona(log);
+				}
+				
+				session.setAttribute("logado", logado);
+				SystemController.setLogado(logado);
+				return "redirect:home";
+			}
+			else
+			{
+				if(reg != null)
+				{
+					mensagem = "<strong>Erro!</strong> Seu serviço está suspenso, contacte o fornecedor do sistema.";
+					return "redirect:login";
+				}
+				else
+				{
+					mensagem = "<strong>Erro!</strong> Não foi possível consultar suas credenciais. Verifique sua conexão com a internet.";
+					return "redirect:login";
+				}
 			}
 			
-			if(msg.contains(">OK"))
-			{
-				Log log = new Log();
-				log.setAcao(msg + " ["+perfil.getNome()+"]");
-				log.setAutor(logado);
-				log.setData(null);
-				logsDao.adiciona(log);
-			}
-			
-			session.setAttribute("logado", logado);
-			SystemController.setLogado(logado);
-			return "forward:home";
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return "forward:login";
+			return "redirect:login";
 		}
 	}
 	
@@ -107,14 +126,23 @@ public class LoginController
 	@RequestMapping("login")
 	public String login(Model model, HttpSession session)
 	{
-		alertasDao.primeiroUso();
-		dao.primeiroUso();
-		
-		Perfil logado = (Perfil)session.getAttribute("logado");
-		if(logado != null)
+		RegistroREST reg = RegistroREST.unmarshall();
+		if(reg != null && reg.isAtivo())
 		{
-			SystemController.setLogado(logado);
-			return "forward:home";
+			alertasDao.primeiroUso();
+			dao.primeiroUso();
+			
+			Perfil logado = (Perfil)session.getAttribute("logado");
+			if(logado != null)
+			{
+				SystemController.setLogado(logado);
+				return "redirect:home";
+			}
+			
+		}
+		else
+		{
+			mensagem = "<strong>Erro!</strong> Seu serviço está suspenso, contacte o fornecedor do sistema.";
 		}
 		
 		model.addAttribute("mensagem",mensagem);
