@@ -22,8 +22,8 @@ import br.com.compliancesoftware.model.Alerta;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.Registro;
-import br.com.compliancesoftware.model.graficos.GraficoClientes;
-import br.com.compliancesoftware.model.graficos.GraficoMes;
+import br.com.compliancesoftware.view.Graficos.GraficoClientes;
+import br.com.compliancesoftware.view.Graficos.GraficoMes;
 
 /**
  * Controlador de requisições do site(projeto).

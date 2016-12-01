@@ -33,7 +33,6 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	    	  requests.add("/logs");
 	    	  requests.add("cadastrarNovoPerfil");
 	    	  requests.add("cadastraPerfil");
-	    	  requests.add("cadastrarNovoPerfil");
 	    	  requests.add("gerenciarRegistros");
 	    	  requests.add("visualizarRegistros");
 	    	  requests.add("cadastrarRegistro");
@@ -48,6 +47,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	    	  requests.add("removerSoftware");
 	    	  requests.add("enviarEmail");
 	    	  requests.add("enviaEmail");
+	    	  requests.add("relatorioDeClientesCadastrados");
 	    	  
 	    	  for(String s:requests)
 	    	  {

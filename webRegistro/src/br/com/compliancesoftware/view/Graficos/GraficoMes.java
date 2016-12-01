@@ -1,4 +1,4 @@
-package br.com.compliancesoftware.model.graficos;
+package br.com.compliancesoftware.view.Graficos;
 
 import java.io.Serializable;
 
