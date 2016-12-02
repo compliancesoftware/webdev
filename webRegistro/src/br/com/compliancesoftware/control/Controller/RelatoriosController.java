@@ -3,6 +3,7 @@ package br.com.compliancesoftware.control.Controller;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.compliancesoftware.control.dao.ClientesDao;
 import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
-import net.sf.jasperreports.engine.JREmptyDataSource;
+import br.com.compliancesoftware.model.Cliente;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -51,11 +54,15 @@ public class RelatoriosController
 	{
 		try
 		{
-			//TODO testar com dados e relatório real
-			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/simple.jasper");
-		    Map<String,Object> params = new HashMap<>();
+			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/clientes.jasper");
+		    Map<String,String> params = new HashMap<>();
+		    params.put("titulo", "Clientes cadastrados no sistema");//TODO continuar
+		    
+		    List<Cliente> listaCliente = clientesDao.listaClientes();
+		    JRDataSource beamDataSource = new JRBeanCollectionDataSource(listaCliente);
+		    
 		    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, beamDataSource);
 
 		    response.setContentType("application/pdf");
 		    response.setHeader("Content-disposition", "inline; filename=clientes.pdf");
