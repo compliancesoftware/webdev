@@ -19,7 +19,8 @@ import br.com.compliancesoftware.control.dao.ClientesDao;
 import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.model.Cliente;
-import net.sf.jasperreports.engine.JRDataSource;
+import br.com.compliancesoftware.model.auxModels.FMT;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -55,14 +56,19 @@ public class RelatoriosController
 		try
 		{
 			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/clientes.jasper");
-		    Map<String,String> params = new HashMap<>();
-		    params.put("titulo", "Clientes cadastrados no sistema");//TODO continuar
+		    Map<String,Object> params = new HashMap<String,Object>();
+		    params.put("titulo", "Clientes cadastrados no sistema.");
+		    params.put("data", FMT.getHojeAsString());
 		    
 		    List<Cliente> listaCliente = clientesDao.listaClientes();
-		    JRDataSource beamDataSource = new JRBeanCollectionDataSource(listaCliente);
+		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(listaCliente);
 		    
 		    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, beamDataSource);
+		    JasperPrint jasperPrint = null;
+		    if(listaCliente != null && listaCliente.size() > 0)
+		    	jasperPrint = JasperFillManager.fillReport(jasperReport, params, beanDataSource);
+		    else
+		    	jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
 		    response.setContentType("application/pdf");
 		    response.setHeader("Content-disposition", "inline; filename=clientes.pdf");
