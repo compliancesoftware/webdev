@@ -23,7 +23,7 @@ public class FMTTeste
 		Calendar hoje = Calendar.getInstance();
 		hoje.setTimeInMillis(System.currentTimeMillis());
 		
-		assertEquals("30/11/2016",FMT.getStringFromCalendar(hoje));
+		assertEquals("02/12/2016",FMT.getStringFromCalendar(hoje));
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class FMTTeste
 		hoje.set(Calendar.MINUTE, 0);
 		hoje.set(Calendar.HOUR_OF_DAY, 0);
 		
-		assertEquals(hoje,FMT.getCalendarFromString("30/11/2016"));
+		assertEquals(hoje,FMT.getCalendarFromString("02/12/2016"));
 	}
 	
 }
