@@ -3,6 +3,7 @@ package br.com.compliancesoftware.control.Controller;
 import java.awt.Image;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.auxModels.FMT;
+import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 import br.com.compliancesoftware.view.Relatorios.Clientes.ClienteAdapter;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -52,22 +54,29 @@ public class RelatoriosController
 	@Autowired
 	private SoftwaresDao softwaresDao;
 	
-	@RequestMapping("relatorioDeClientesCadastradosPdf")
+	@RequestMapping("relatorioDeClientesPdf")
 	@ResponseBody
-	public void relatorioDeClientesCadastrados(HttpServletResponse response)
+	public void relatorioDeClientesCadastrados(String lista, HttpServletResponse response)
 	{
 		try
 		{
+			System.out.println(lista);
 			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/clientes.jasper");
 			InputStream imageStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/relatorios_fundo.png");
 			Image background = ImageIO.read(imageStream);
 			
 		    Map<String,Object> params = new HashMap<String,Object>();
-		    params.put("titulo", "Clientes cadastrados no sistema.");
+		    params.put("titulo", "Todos os clientes cadastrados");
 		    params.put("data", FMT.getHojeAsString());
 		    params.put("background", background);
-		    //TODO testar este relatório
-		    List<Cliente> listaCliente = clientesDao.listaClientes();
+		    //TODO testar este relatório e montar um genérico onde seja recebida a listagem como String e convertida em List para montar o mesmo.
+		    List<Cliente> listaCliente = new ArrayList<Cliente>();
+		    List<Long> ids = ListaIdsBean.constroiDe(lista);
+		    for(Long id : ids)
+		    {
+		    	Cliente cli = clientesDao.pegaClientePorId(id);
+		    	listaCliente.add(cli);
+		    }
 		    List<ClienteAdapter> bean= ClienteAdapter.listaDeClientes(listaCliente);
 		    
 		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(bean);

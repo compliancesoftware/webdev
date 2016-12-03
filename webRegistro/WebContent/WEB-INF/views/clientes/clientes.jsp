@@ -35,7 +35,8 @@
     		<c:import url="tabela.jsp"/>
     	</div>
         <br>
-        <a href="cadastrarCliente"> <button class="btn-block btn-white info" type="button">Cadastrar novo cliente</button></a>
+        <hr>
+        <a href="cadastrarCliente"><button class="btn-block btn-white info" type="button">Cadastrar novo cliente</button></a>
     </div>
   </div>
   <mtag:footerHtml/>

@@ -1,7 +1,12 @@
 package br.com.compliancesoftware.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
+import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.auxModels.FMT;
+import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 import br.com.compliancesoftware.model.auxModels.VerificaId;
 
 /**
@@ -14,9 +19,45 @@ public class Test
 
 	public static void main(String[] args) 
 	{
-		System.out.println(testaConversaoDeHoje());
+		String lista = testaListaDeIdsAPartirDeListaBean();
+		System.out.println("Lista: "+lista);
+		testaListaDeIdsAPartirDeListaString(lista);
 	}
 
+	/**
+	 * Cria uma lista de ids separada por vírgula a partir do bean passado.
+	 * @return
+	 */
+	public static String testaListaDeIdsAPartirDeListaBean()
+	{
+		Cliente cliente1 = new Cliente();
+		cliente1.setId(1);
+		cliente1.setNome("Teste1");
+		
+		Cliente cliente2 = new Cliente();
+		cliente2.setId(2);
+		cliente2.setNome("Teste2");
+		
+		ArrayList<Cliente> listaBean = new ArrayList<Cliente>();
+		listaBean.add(cliente1);
+		listaBean.add(cliente2);
+		
+		return ListaIdsBean.extraiDe(listaBean);
+	}
+	
+	/**
+	 * Cria uma List<Long> de ids a partir da lista em forma de String
+	 * @return
+	 */
+	public static void testaListaDeIdsAPartirDeListaString(String lista)
+	{
+		List<Long> list = ListaIdsBean.constroiDe(lista);
+		for(Long item : list)
+		{
+			System.out.println("Id: "+item);
+		}
+	}
+	
 	/**
 	 * Converte um Calendar com a data de hoje em uma String
 	 * @return

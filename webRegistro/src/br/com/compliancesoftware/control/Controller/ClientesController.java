@@ -19,6 +19,7 @@ import br.com.compliancesoftware.control.dao.PerfisDao;
 import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
+import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 
 /**
  * Controller para clientes
@@ -45,8 +46,6 @@ public class ClientesController
 	@Autowired
 	private AlertasDao alertasDao;
 	
-	private List<Cliente> listaClientes = null;
-	
 	private String mensagem = null;
 	
 	/**
@@ -63,16 +62,11 @@ public class ClientesController
 		Perfil logado = (Perfil)session.getAttribute("logado");
 		model.addAttribute("logged",logado);
 		
-		if(listaClientes != null && listaClientes.size()>0)
-		{
-			model.addAttribute("listaClientes",listaClientes);
-			listaClientes = null;
-		}
-		else
-		{
-			List<Cliente> lista = clientesDao.listaClientes();
-			model.addAttribute("listaClientes",lista);
-		}
+		List<Cliente> lista = clientesDao.listaClientes();
+		String listaIds = ListaIdsBean.extraiDe(lista);
+		
+		model.addAttribute("listaClientes",lista);
+		model.addAttribute("listaIdsDeClientes",listaIds);
 		
 		model.addAttribute("mensagem",mensagem);
 		mensagem = null;
@@ -129,7 +123,10 @@ public class ClientesController
 	public String pesquisaClientes(String pesquisa, Model model)
 	{
 		List<Cliente> lista = clientesDao.pesquisaCliente(pesquisa);
+		String listaIds = ListaIdsBean.extraiDe(lista);
+		
 		model.addAttribute("listaClientes",lista);
+		model.addAttribute("listaIdsDeClientes",listaIds);
 		
 		return "clientes/tabela";
 	}
