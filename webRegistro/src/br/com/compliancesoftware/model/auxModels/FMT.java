@@ -58,8 +58,18 @@ public class FMT
 	
 	public static String getHojeAsString()
 	{
-		Calendar date = Calendar.getInstance();
-		date.setTimeInMillis(System.currentTimeMillis());
-		return getStringFromCalendar(date);
+		try
+		{
+			Calendar hoje = Calendar.getInstance();
+			hoje.setTimeInMillis(System.currentTimeMillis());
+			SimpleDateFormat fmt = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy");
+			String date = fmt.format(hoje.getTime());
+			return date;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

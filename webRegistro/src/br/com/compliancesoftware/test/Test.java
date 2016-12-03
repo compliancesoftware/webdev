@@ -1,6 +1,7 @@
 package br.com.compliancesoftware.test;
 
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
+import br.com.compliancesoftware.model.auxModels.FMT;
 import br.com.compliancesoftware.model.auxModels.VerificaId;
 
 /**
@@ -13,9 +14,18 @@ public class Test
 
 	public static void main(String[] args) 
 	{
-		System.out.println(testaCodigo("07.788.452/0002-00"));
+		System.out.println(testaConversaoDeHoje());
 	}
 
+	/**
+	 * Converte um Calendar com a data de hoje em uma String
+	 * @return
+	 */
+	public static String testaConversaoDeHoje()
+	{
+		return FMT.getHojeAsString();
+	}
+	
 	/**
 	 * Método para validar o CNPJ ou o CPF.
 	 * @param cnpj

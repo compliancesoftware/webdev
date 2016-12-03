@@ -20,6 +20,7 @@ import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.auxModels.FMT;
+import br.com.compliancesoftware.view.Relatorios.Clientes.ClienteAdapter;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -61,7 +62,9 @@ public class RelatoriosController
 		    params.put("data", FMT.getHojeAsString());
 		    
 		    List<Cliente> listaCliente = clientesDao.listaClientes();
-		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(listaCliente);
+		    List<ClienteAdapter> bean= ClienteAdapter.listaDeClientes(listaCliente);
+		    
+		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(bean);
 		    
 		    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 		    JasperPrint jasperPrint = null;

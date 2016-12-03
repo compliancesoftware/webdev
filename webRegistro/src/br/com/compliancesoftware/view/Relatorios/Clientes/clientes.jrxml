@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T16:44:20 -->
+<!-- 2016-12-02T22:44:11 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d154d872-341b-4620-84fa-2be4c647bbcf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="titulo" class="java.lang.String">
@@ -57,7 +57,78 @@
 		<band height="36" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="67" splitType="Stretch"/>
+		<band height="134" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="10" width="80" height="21" uuid="605cbb6f-5e08-4ed3-a114-e26f22d985b0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="31" width="80" height="21" uuid="3e23dc11-4db2-40dd-b4f5-70c74bfa8510"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identificação: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="52" width="80" height="21" uuid="cbec90d3-b710-434d-ade1-090257c9619e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contato: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="71" width="80" height="21" uuid="1bd792fe-b0c7-4878-8510-d78dd62a8c39"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="92" width="80" height="21" uuid="4ffbdffb-aba6-4df6-9f11-39adfa805c72"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsável: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="181" y="10" width="374" height="20" uuid="26c4556a-f385-4b86-94b7-b18e34cf64d7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="30" width="374" height="20" uuid="0d33981f-4799-41e4-89b9-126d4b8751f3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="51" width="374" height="20" uuid="2ee6dfc3-73a9-46d2-aa38-4f2df36bf525"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="70" width="374" height="20" uuid="3bd26ac7-cf1a-4876-a569-b1ec062dd045"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="91" width="374" height="20" uuid="1611d1bf-9451-4c01-83ab-14a1feae6042"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{responsavel}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="35" splitType="Stretch"/>
