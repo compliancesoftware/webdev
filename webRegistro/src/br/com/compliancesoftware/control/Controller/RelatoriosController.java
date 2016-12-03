@@ -1,11 +1,13 @@
 package br.com.compliancesoftware.control.Controller;
 
+import java.awt.Image;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +59,14 @@ public class RelatoriosController
 		try
 		{
 			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/clientes.jasper");
+			InputStream imageStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/relatorios_fundo.png");
+			Image background = ImageIO.read(imageStream);
+			
 		    Map<String,Object> params = new HashMap<String,Object>();
 		    params.put("titulo", "Clientes cadastrados no sistema.");
 		    params.put("data", FMT.getHojeAsString());
-		    
+		    params.put("background", background);
+		    //TODO testar este relatório
 		    List<Cliente> listaCliente = clientesDao.listaClientes();
 		    List<ClienteAdapter> bean= ClienteAdapter.listaDeClientes(listaCliente);
 		    
@@ -79,6 +85,8 @@ public class RelatoriosController
 		    final OutputStream outStream = response.getOutputStream();
 		    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 		    outStream.close();
+		    jasperStream.close();
+		    imageStream.close();
 		}
 		catch(Exception e)
 		{

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-02T22:44:11 -->
+<!-- 2016-12-03T12:54:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d154d872-341b-4620-84fa-2be4c647bbcf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="titulo" class="java.lang.String">
@@ -9,6 +9,7 @@
 	<parameter name="data" class="java.lang.String">
 		<parameterDescription><![CDATA[data]]></parameterDescription>
 	</parameter>
+	<parameter name="background" class="java.awt.Image"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -28,24 +29,34 @@
 		<fieldDescription><![CDATA[responsavel]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="555" height="802" uuid="8fd9cd0a-eccd-4623-a000-f32fc4f7cd65"/>
+				<imageExpression><![CDATA[$P{background}]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="97" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-			<rectangle>
-				<reportElement x="0" y="0" width="555" height="88" backcolor="#0066FF" uuid="00853432-43c3-4cbb-83d2-4776a351eada"/>
+			<rectangle radius="5">
+				<reportElement x="-20" y="-20" width="595" height="108" backcolor="#E8FFFF" uuid="00853432-43c3-4cbb-83d2-4776a351eada"/>
+				<graphicElement>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement key="" mode="Transparent" x="10" y="0" width="545" height="88" forecolor="#FFFFFF" backcolor="#FAFCFF" uuid="fb64b7ad-89ef-462e-9870-fa1530397d1e"/>
+				<reportElement key="" mode="Transparent" x="0" y="0" width="555" height="88" forecolor="#000000" backcolor="#FAFCFF" uuid="fb64b7ad-89ef-462e-9870-fa1530397d1e"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="25"/>
 				</textElement>
-				<text><![CDATA[CLIENTES]]></text>
+				<text><![CDATA[Clientes]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="280" y="50" width="275" height="30" forecolor="#FFFFFF" uuid="be157344-3046-47bb-9d5a-416a169e3c8d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="280" y="50" width="275" height="30" forecolor="#000000" uuid="be157344-3046-47bb-9d5a-416a169e3c8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 		</band>
