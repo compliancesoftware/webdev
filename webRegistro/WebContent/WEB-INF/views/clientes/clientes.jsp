@@ -21,6 +21,15 @@
 
 <!-- body -->
 <div id="corpo" class="container-fluid nav-padded">
+	<div class="row">
+		<div class="col-md-9"></div>
+		<div class="col-md-3">
+			<form method="post" action="relatorioDeClientes">
+				<input type="hidden" name="lista" class="form-control" value="${listaIdsDeClientes}">
+            	<button class="btn-block btn-white form-control info" type="submit">Imprimir este relatório em PDF</button>
+			</form>
+		</div>
+	</div>
    <div class="row">
   	<div class="col-md-3"></div>
   	<div class="col-md-6">

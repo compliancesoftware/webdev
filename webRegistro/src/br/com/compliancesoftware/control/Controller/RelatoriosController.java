@@ -25,7 +25,6 @@ import br.com.compliancesoftware.model.Cliente;
 import br.com.compliancesoftware.model.auxModels.FMT;
 import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 import br.com.compliancesoftware.view.Relatorios.Clientes.ClienteAdapter;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -54,23 +53,18 @@ public class RelatoriosController
 	@Autowired
 	private SoftwaresDao softwaresDao;
 	
-	@RequestMapping("relatorioDeClientesPdf")
+	@RequestMapping("relatorioDeClientes")
 	@ResponseBody
 	public void relatorioDeClientesCadastrados(String lista, HttpServletResponse response)
 	{
 		try
 		{
-			System.out.println(lista);
-			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/Clientes/clientes.jasper");
-			InputStream imageStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/relatorios_fundo.png");
-			Image background = ImageIO.read(imageStream);
+			if(lista == null || lista.equals(null) || lista.replace(",", "").trim().equals(""))
+			{
+				throw new Exception("Lista vazia.");
+			}
 			
-		    Map<String,Object> params = new HashMap<String,Object>();
-		    params.put("titulo", "Todos os clientes cadastrados");
-		    params.put("data", FMT.getHojeAsString());
-		    params.put("background", background);
-		    //TODO testar este relatório e montar um genérico onde seja recebida a listagem como String e convertida em List para montar o mesmo.
-		    List<Cliente> listaCliente = new ArrayList<Cliente>();
+			List<Cliente> listaCliente = new ArrayList<Cliente>();
 		    List<Long> ids = ListaIdsBean.constroiDe(lista);
 		    for(Long id : ids)
 		    {
@@ -80,19 +74,48 @@ public class RelatoriosController
 		    List<ClienteAdapter> bean= ClienteAdapter.listaDeClientes(listaCliente);
 		    
 		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(bean);
+		    imprimeRelatorio("Clientes/clientes.jasper","Clientes cadastrados",beanDataSource,response);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			SystemController.setMsg("<strong>Erro!</strong> Erro ao tentar imprimir relatório. Verifique se a listagem foi bem sucedida.");
+			try
+			{
+				response.sendRedirect("home");
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	private void imprimeRelatorio(String local, String titulo, JRBeanCollectionDataSource beanDataSource, HttpServletResponse response)
+	{
+		try
+		{
+			InputStream jasperStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/"+local);
+			InputStream imageStream = this.getClass().getResourceAsStream("/br/com/compliancesoftware/view/Relatorios/relatorios_fundo.png");
+			Image background = ImageIO.read(imageStream);
+			
+		    Map<String,Object> params = new HashMap<String,Object>();
+		    params.put("titulo", titulo);
+		    params.put("data", FMT.getHojeAsString());
+		    params.put("background", background);
 		    
 		    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		    JasperPrint jasperPrint = null;
-		    if(listaCliente != null && listaCliente.size() > 0)
-		    	jasperPrint = JasperFillManager.fillReport(jasperReport, params, beanDataSource);
-		    else
-		    	jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-
-		    response.setContentType("application/pdf");
-		    response.setHeader("Content-disposition", "inline; filename=clientes.pdf");
+		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, beanDataSource);
 
 		    final OutputStream outStream = response.getOutputStream();
+		    
+		    String fileName = local.substring(local.indexOf("/")+1).replace(".jasper", ".pdf");
+	    	
+	    	response.setContentType("application/pdf");
+		    response.setHeader("Content-disposition", "inline; filename="+fileName);
+		    
 		    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		    
 		    outStream.close();
 		    jasperStream.close();
 		    imageStream.close();
@@ -102,4 +125,5 @@ public class RelatoriosController
 			e.printStackTrace();
 		}
 	}
+	
 }
