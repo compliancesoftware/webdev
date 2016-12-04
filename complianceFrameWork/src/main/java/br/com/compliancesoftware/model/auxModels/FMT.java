@@ -56,15 +56,40 @@ public class FMT
 		}
 	}
 	
+	/**
+	 * Pega a data de hoje como uma String no formato como o exemplo "Sexta-feira, 02 de Dezembro de 2016".
+	 * @return
+	 */
 	public static String getHojeAsString()
 	{
 		try
 		{
 			Calendar hoje = Calendar.getInstance();
 			hoje.setTimeInMillis(System.currentTimeMillis());
-			SimpleDateFormat fmt = new SimpleDateFormat("w, dd 'de' MMMM 'de' yyyy");
+			SimpleDateFormat fmt = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy");
 			String date = fmt.format(hoje.getTime());
 			return date;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Retorna um Calendar com a data de hoje, as horas, minutos, segundos e milisegundos estarão zerados para que haja uma melhor comparação a nível de data.
+	 * @return
+	 */
+	public static Calendar getHoje()
+	{
+		try
+		{
+			Calendar hoje = Calendar.getInstance();
+			hoje.setTimeInMillis(System.currentTimeMillis());
+			String zerada = getStringFromCalendar(hoje);
+			hoje = getCalendarFromString(zerada);
+			return hoje;
 		}
 		catch(Exception e)
 		{

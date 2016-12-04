@@ -40,6 +40,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 	    	  requests.add("cadastrarNovoPerfil");
 	    	  requests.add("cadastraPerfil");
 	    	  requests.add("cadastrarNovoPerfil");
+	    	  requests.add("relatorioDe");
 	    	  
 	    	  for(String s:requests)
 	    	  {
