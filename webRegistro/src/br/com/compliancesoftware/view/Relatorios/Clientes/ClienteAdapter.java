@@ -17,6 +17,8 @@ public class ClienteAdapter
 	private String contato;
 	private String email;
 	private String responsavel;
+	private String cadastradoEm;
+	private String cadastradoPor;
 	
 	public ClienteAdapter(Cliente cliente)
 	{
@@ -25,8 +27,18 @@ public class ClienteAdapter
 		this.contato = cliente.getFmtContato();
 		this.email = cliente.getEmail();
 		this.responsavel = cliente.getResponsavel();
+		this.cadastradoEm = cliente.getFmtDtInclusao();
+		this.cadastradoPor = cliente.getQuemIncluiu().getNome();
 	}
 	
+	public String getCadastradoEm() {
+		return cadastradoEm;
+	}
+
+	public String getCadastradoPor() {
+		return cadastradoPor;
+	}
+
 	public String getNome() {
 		return nome;
 	}

@@ -22,9 +22,11 @@ import br.com.compliancesoftware.control.dao.ClientesDao;
 import br.com.compliancesoftware.control.dao.RegistrosDao;
 import br.com.compliancesoftware.control.dao.SoftwaresDao;
 import br.com.compliancesoftware.model.Cliente;
+import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.auxModels.FMT;
 import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 import br.com.compliancesoftware.view.Relatorios.Clientes.ClienteAdapter;
+import br.com.compliancesoftware.view.Relatorios.Registros.RegistroAdapter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -53,9 +55,14 @@ public class RelatoriosController
 	@Autowired
 	private SoftwaresDao softwaresDao;
 	
+	/**
+	 * Emite o relatório de clientes.
+	 * @param lista
+	 * @param response
+	 */
 	@RequestMapping("relatorioDeClientes")
 	@ResponseBody
-	public void relatorioDeClientesCadastrados(String lista, HttpServletResponse response)
+	public void relatorioDeClientes(String lista, HttpServletResponse response)
 	{
 		try
 		{
@@ -91,6 +98,56 @@ public class RelatoriosController
 		}
 	}
 	
+	/**
+	 * Emite o relatório de registros
+	 * @param lista
+	 * @param response
+	 */
+	@RequestMapping("relatorioDeRegistros")
+	@ResponseBody
+	public void relatorioDeRegistros(String lista, HttpServletResponse response)
+	{
+		try
+		{
+			if(lista == null || lista.equals(null) || lista.replace(",", "").trim().equals(""))
+			{
+				throw new Exception("Lista vazia.");
+			}
+			
+			List<Registro> listaRegistro = new ArrayList<Registro>();
+		    List<Long> ids = ListaIdsBean.constroiDe(lista);
+		    for(Long id : ids)
+		    {
+		    	Registro reg = registrosDao.pegaRegistroPorId(id);
+		    	listaRegistro.add(reg);
+		    }
+		    List<RegistroAdapter> bean= RegistroAdapter.listaDeRegistros(listaRegistro);
+		    
+		    JRBeanCollectionDataSource beanDataSource = new JRBeanCollectionDataSource(bean);
+		    imprimeRelatorio("Registros/registros.jasper","Registros cadastrados",beanDataSource,response);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			SystemController.setMsg("<strong>Erro!</strong> Erro ao tentar imprimir relatório. Verifique se a listagem foi bem sucedida.");
+			try
+			{
+				response.sendRedirect("home");
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Gera relatório com base nos parâmetros passados.
+	 * @param local
+	 * @param titulo
+	 * @param beanDataSource
+	 * @param response
+	 */
 	private void imprimeRelatorio(String local, String titulo, JRBeanCollectionDataSource beanDataSource, HttpServletResponse response)
 	{
 		try

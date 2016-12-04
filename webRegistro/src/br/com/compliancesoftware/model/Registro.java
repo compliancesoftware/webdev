@@ -103,6 +103,11 @@ public class Registro
 	public Calendar getIncluido() {
 		return this.incluido;
 	}
+	
+	public String getFmtIncluido()
+	{
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(this.incluido.getTime());
+	}
 
 	/**
 	 * @param Nova configuração para incluido

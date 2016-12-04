@@ -30,6 +30,7 @@ import br.com.compliancesoftware.model.Log;
 import br.com.compliancesoftware.model.Perfil;
 import br.com.compliancesoftware.model.Registro;
 import br.com.compliancesoftware.model.Software;
+import br.com.compliancesoftware.model.auxModels.ListaIdsBean;
 import br.com.compliancesoftware.model.auxModels.Percentual;
 import br.com.compliancesoftware.model.auxModels.RegistroAux;
 import br.com.compliancesoftware.model.auxModels.RegistroREST;
@@ -97,6 +98,9 @@ public class RegistrosController
 			List<Registro> listaRegistros = registrosDao.lista();
 			model.addAttribute("listaRegistros",listaRegistros);
 			
+			String listaIdsDeRegistros = ListaIdsBean.extraiDe(listaRegistros);
+			model.addAttribute("listaIdsDeRegistros",listaIdsDeRegistros);
+			
 			ArrayList<Percentual> listaPercentual = Percentual.getListaZeroACem();
 			model.addAttribute("listaPercentual",listaPercentual);
 			
@@ -132,6 +136,9 @@ public class RegistrosController
 				
 				model.addAttribute("listaRegistros",registros);
 				
+				String listaIdsDeRegistros = ListaIdsBean.extraiDe(registros);
+				model.addAttribute("listaIdsDeRegistros",listaIdsDeRegistros);
+				
 				return "registros/registros";
 			}
 			else
@@ -152,6 +159,9 @@ public class RegistrosController
 	{
 		List<Registro> listaRegistros = registrosDao.lista(filtro);
 		model.addAttribute("listaRegistros",listaRegistros);
+		
+		String listaIdsDeRegistros = ListaIdsBean.extraiDe(listaRegistros);
+		model.addAttribute("listaIdsDeRegistros",listaIdsDeRegistros);
 		
 		return "registros/tabela";
 	}

@@ -72,4 +72,21 @@ public class FMT
 			return null;
 		}
 	}
+	
+	public static Calendar getHoje()
+	{
+		try
+		{
+			Calendar hoje = Calendar.getInstance();
+			hoje.setTimeInMillis(System.currentTimeMillis());
+			String zerada = getStringFromCalendar(hoje);
+			hoje = getCalendarFromString(zerada);
+			return hoje;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

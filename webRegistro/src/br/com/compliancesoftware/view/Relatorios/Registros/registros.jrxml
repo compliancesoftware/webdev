@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-04T10:50:54 -->
+<!-- 2016-12-04T13:02:31 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d154d872-341b-4620-84fa-2be4c647bbcf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="titulo" class="java.lang.String">
@@ -13,11 +13,14 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
-	<field name="codigo" class="java.lang.String">
-		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	<field name="software" class="java.lang.String">
+		<fieldDescription><![CDATA[software]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.String">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
 	</field>
 	<field name="contato" class="java.lang.String">
 		<fieldDescription><![CDATA[contato]]></fieldDescription>
@@ -33,6 +36,18 @@
 	</field>
 	<field name="cadastradoPor" class="java.lang.String">
 		<fieldDescription><![CDATA[cadastradoPor]]></fieldDescription>
+	</field>
+	<field name="validade" class="java.lang.String">
+		<fieldDescription><![CDATA[validade]]></fieldDescription>
+	</field>
+	<field name="ativo" class="java.lang.String">
+		<fieldDescription><![CDATA[ativo]]></fieldDescription>
+	</field>
+	<field name="situacao" class="java.lang.String">
+		<fieldDescription><![CDATA[situacao]]></fieldDescription>
+	</field>
+	<field name="observacoes" class="java.lang.String">
+		<fieldDescription><![CDATA[observacoes]]></fieldDescription>
 	</field>
 	<background>
 		<band height="802" splitType="Stretch">
@@ -56,7 +71,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="25"/>
 				</textElement>
-				<text><![CDATA[Clientes]]></text>
+				<text><![CDATA[Registros]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="280" y="50" width="275" height="30" forecolor="#000000" uuid="be157344-3046-47bb-9d5a-416a169e3c8d"/>
@@ -74,104 +89,174 @@
 		<band height="36" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="165" splitType="Stretch">
+		<band height="310" splitType="Stretch">
 			<staticText>
-				<reportElement x="80" y="0" width="80" height="20" uuid="605cbb6f-5e08-4ed3-a114-e26f22d985b0"/>
+				<reportElement x="80" y="0" width="200" height="20" uuid="605cbb6f-5e08-4ed3-a114-e26f22d985b0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nome: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="20" width="80" height="20" uuid="3e23dc11-4db2-40dd-b4f5-70c74bfa8510"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Identificação: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="40" width="80" height="20" uuid="cbec90d3-b710-434d-ade1-090257c9619e"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Contato: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="60" width="80" height="20" uuid="1bd792fe-b0c7-4878-8510-d78dd62a8c39"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[E-mail: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="80" width="80" height="20" uuid="4ffbdffb-aba6-4df6-9f11-39adfa805c72"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Responsável: ]]></text>
+				<text><![CDATA[Cliente: ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="290" y="0" width="265" height="20" uuid="26c4556a-f385-4b86-94b7-b18e34cf64d7"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="80" y="100" width="200" height="20" uuid="263115a2-e22d-4a5e-8036-1e817b28a0fa"/>
+				<reportElement x="80" y="20" width="200" height="20" uuid="f0ba03b2-9e06-4e50-9d67-56b121006d87"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Data de cadastro (ou última modificação): ]]></text>
+				<text><![CDATA[Software: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="120" width="200" height="20" uuid="73fda75f-5aed-4516-b486-426e8d8edf9c"/>
+				<reportElement x="80" y="40" width="200" height="20" uuid="083a58c2-029a-47b0-a67a-21fd4eb4caad"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nome do Perfil modificador:]]></text>
+				<text><![CDATA[Valor: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="60" width="200" height="20" uuid="4dffdfb1-eab5-4dee-87b1-510b338a6380"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contato: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="80" width="200" height="20" uuid="d878c815-80eb-4498-865a-a3be2e3a079d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="100" width="200" height="20" uuid="060719c9-14d4-4673-b09b-95704144faf7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsável: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="120" width="200" height="20" uuid="f22c86d5-fceb-499d-aa4a-940b21a82a6d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registro feito em: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="140" width="200" height="20" uuid="a01cd1c4-1623-4ae7-815d-e10e6a009dc0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registrado por: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="160" width="200" height="20" uuid="67b04509-cc0d-4538-9241-9fd4be078647"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Validade: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="180" width="200" height="20" uuid="577add3d-c0c0-48ce-aa74-45570aa44e5f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ativo: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="200" width="200" height="30" uuid="38fbde55-d43b-4b93-a062-db03e786c8c9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="230" width="200" height="80" uuid="82b55136-09b6-4390-a2a1-17f28944b347"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="290" y="20" width="265" height="20" uuid="59b868ed-280c-4a85-bb9b-a074b6373003"/>
+				<reportElement x="290" y="20" width="265" height="20" uuid="5e495f89-aac3-4e98-8a63-cefed7b88969"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{software}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="40" width="265" height="20" uuid="3651d0c2-4e40-42bc-ad3f-486a3ea6b90f"/>
+				<reportElement x="290" y="40" width="265" height="20" uuid="3f0a72cc-9fa2-4ace-878a-430640096982"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="60" width="265" height="20" uuid="9292c8c6-a0a4-44e6-9a42-47326f3b94aa"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{contato}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="60" width="265" height="20" uuid="bf3cca43-f27e-4517-a6d1-4a4fb681cb12"/>
+				<reportElement x="290" y="80" width="265" height="20" uuid="4575112a-0ac7-40dc-a592-7000ccd07421"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="80" width="265" height="20" uuid="00c9d223-fd0d-4ad3-9f66-1fcf54396bec"/>
+				<reportElement x="290" y="100" width="265" height="20" uuid="e19ea083-1739-4b66-84b9-7a1c8432517d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{responsavel}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="100" width="265" height="20" uuid="9156e7b9-0225-41fe-ba04-e59ba0f9f431"/>
+				<reportElement x="290" y="120" width="265" height="20" uuid="310dc8a0-c7a5-4bda-89f8-bcc1079c8103"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cadastradoEm}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="290" y="120" width="265" height="20" uuid="3777c271-4b95-4f91-b6f8-e09a09e75c22"/>
+				<reportElement x="290" y="140" width="265" height="20" uuid="eb71d59d-7bf7-469a-a9b1-7475d7da0f89"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cadastradoPor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="160" width="265" height="20" uuid="52d23690-e9af-4d38-bb97-f848404a80e8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{validade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="180" width="265" height="20" uuid="b50e9ee2-ca3f-48aa-a0fa-bc1cff3f2d98"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="200" width="265" height="30" uuid="7747ee26-a679-4a12-9371-ab47ec6e4b6a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="230" width="265" height="80" uuid="6059e7d9-eb2e-447d-ab18-a964ab9f4b22"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
