@@ -1,6 +1,5 @@
 package br.com.compliancesoftware.model.auxModels;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -56,17 +55,7 @@ public class RegistroAux
 	
 	public void setValidade(String data)
 	{
-		try
-		{
-			Calendar val = Calendar.getInstance();
-			val.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(data));
-			this.validade = val;
-		}
-		catch(Exception e)
-		{
-			this.validade = null;
-			e.printStackTrace();
-		}
+		this.validade = FMT.getCalendarFromString(data);
 	}
 	
 	public Calendar getValidade()

@@ -32,4 +32,13 @@ public class PercentualTest
 		
 		assertEquals("100",percentual.getValorAsString());
 	}
+	
+	@Test
+	public void testaOverrideToString()
+	{
+		Percentual percentual = new Percentual();
+		percentual.setValor(100.00);
+		
+		assertEquals("100",""+percentual);
+	}
 }
