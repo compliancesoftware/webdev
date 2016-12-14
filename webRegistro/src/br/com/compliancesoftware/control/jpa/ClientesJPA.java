@@ -439,8 +439,16 @@ public class ClientesJPA implements ClientesDao
 		fim.set(Calendar.MONTH, mes);
 		inicio.set(Calendar.YEAR, hoje.get(Calendar.YEAR));
 		inicio.set(Calendar.YEAR, hoje.get(Calendar.YEAR));
+		inicio.set(Calendar.HOUR_OF_DAY, 23);
+		fim.set(Calendar.HOUR_OF_DAY, 23);
+		inicio.set(Calendar.MINUTE, 59);
+		fim.set(Calendar.MINUTE, 59);
+		inicio.set(Calendar.SECOND, 59);
+		fim.set(Calendar.SECOND, 59);
+		inicio.set(Calendar.MILLISECOND, 99);
+		fim.set(Calendar.MILLISECOND, 99);
 		
-		Query query = manager.createQuery("select c from Cliente as c where c.dtInclusao > :paramInicio and c.dtInclusao < :paramFim");
+		Query query = manager.createQuery("select c from Cliente as c where c.dtInclusao >= :paramInicio and c.dtInclusao <= :paramFim");
 		query.setParameter("paramInicio", inicio);
 		query.setParameter("paramFim", fim);
 		

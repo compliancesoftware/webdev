@@ -14,14 +14,20 @@ body{
 .white, a{
 	color: #AEB0B3 !important;
 }
+a{
+	color: #AEB0B3 !important;
+}
 .white:hover, a:hover{
-	color: #0B62A4 !important;
+	color: #c4ffff !important;
+}
+a:hover{
+	color: #c4ffff !important;
 }
 .logo-white{
 	color: #000 !important;
 }
 .logo-white:hover{
-	color: #0B62A4 !important;
+	color: #c4ffff !important;
 }
 .btn-white{
 	color:#FFF !important;
