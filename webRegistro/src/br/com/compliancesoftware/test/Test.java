@@ -1,5 +1,8 @@
 package br.com.compliancesoftware.test;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +10,8 @@ import java.util.concurrent.TimeUnit;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
 import br.com.compliancesoftware.model.Cliente;
@@ -24,8 +29,37 @@ public class Test
 
 	public static void main(String[] args) 
 	{
-		String distancia = testaDistanciaEntreDoisPontosGoogleAPI();
-		System.out.println("Distância: "+distancia);
+		String distancia = testaDistanciaComWebService();
+		System.out.println(distancia);
+	}
+	
+	public static String testaDistanciaComWebService()
+	{
+		String url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=-8.1866353,-34.9233061&destinations=-8.2928295,-35.045615&language=pt-BR";
+		try
+		{
+			URL add = new URL(url);
+			HttpURLConnection con = (HttpURLConnection)add.openConnection();
+			InputStream content = con.getInputStream();
+			
+			XStream stream = new XStream(new DomDriver());
+			stream.alias("DistanceMatrixResponse", DistanceMatrixResponse.class);
+			
+			DistanceMatrixResponse response = (DistanceMatrixResponse)stream.fromXML(content);
+			
+			content.close();
+			con.disconnect();
+			
+			String resposta = "Distância de "+response.getRow().getElement().getDistance().getText()+"\n";
+			resposta += "Tempo dirigindo com trânsito atual: "+response.getRow().getElement().getDuration().getText();
+			
+			return resposta;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
