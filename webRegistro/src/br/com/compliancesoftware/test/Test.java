@@ -2,6 +2,11 @@ package br.com.compliancesoftware.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DistanceMatrix;
 
 import br.com.compliancesoftware.control.dao.filtros.FiltroRegistro;
 import br.com.compliancesoftware.model.Cliente;
@@ -19,11 +24,34 @@ public class Test
 
 	public static void main(String[] args) 
 	{
-		String lista = testaListaDeIdsAPartirDeListaBean();
-		System.out.println("Lista: "+lista);
-		testaListaDeIdsAPartirDeListaString(lista);
+		String distancia = testaDistanciaEntreDoisPontosGoogleAPI();
+		System.out.println("Distância: "+distancia);
 	}
 
+	/**
+	 * Cria dois pontos pela google api e testa a conexão entre os dois.
+	 * @return
+	 */
+	public static String testaDistanciaEntreDoisPontosGoogleAPI()
+	{
+		try
+		{
+			GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyCNgo7zFt-FiFjZtuPzhuDz7VUu87kIFhU");
+			context.setConnectTimeout(1, TimeUnit.SECONDS).setReadTimeout(1, TimeUnit.SECONDS).setWriteTimeout(1, TimeUnit.SECONDS);
+			
+			String[] origins = new String[]{"-8.191422, -34.919100"};
+			String[] destinations = new String[]{"-8.190086, -34.927242"};
+			
+			DistanceMatrix distanceMatrix = DistanceMatrixApi.getDistanceMatrix(context , origins, destinations).await();
+			return distanceMatrix.rows[0].elements[0].distance.humanReadable;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	/**
 	 * Cria uma lista de ids separada por vírgula a partir do bean passado.
 	 * @return
