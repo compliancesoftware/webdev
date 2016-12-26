@@ -83,28 +83,36 @@ public class EmailController
 	 * @return
 	 */
 	@RequestMapping("notificarAtrasados")
-	public String notificarAtrasados(String email, HttpSession session, Model model)
+	public String notificarAtrasados(HttpSession session, Model model)
 	{
 		List<Registro> lista = registrosDao.listaAtrasados();
 		
-		ArrayList<String> emails = new ArrayList<String>();
-		for(Registro reg : lista)
+		if(lista != null && lista.size() > 0)
 		{
-			emails.add(reg.getCliente().getEmail());
+			ArrayList<String> emails = new ArrayList<String>();
+			for(Registro reg : lista)
+			{
+				emails.add(reg.getCliente().getEmail());
+			}
+			
+			model.addAttribute("emails",emails);
+			
+			int alertas = alertasDao.conta();
+			model.addAttribute("alertas",alertas);
+			
+			Perfil logado = (Perfil)session.getAttribute("logado");
+			model.addAttribute("logged",logado);
+			
+			model.addAttribute("mensagem",mensagem);
+			mensagem = null;
+			
+			return "email/enviar";
 		}
-		
-		model.addAttribute("emails",emails);
-		
-		int alertas = alertasDao.conta();
-		model.addAttribute("alertas",alertas);
-		
-		Perfil logado = (Perfil)session.getAttribute("logado");
-		model.addAttribute("logged",logado);
-		
-		model.addAttribute("mensagem",mensagem);
-		mensagem = null;
-		
-		return "email/enviar";
+		else
+		{
+			SystemController.setMsg("<strong>Info!</strong> Não há clientes atrasados.");
+			return "redirect:home";
+		}
 	}
 	
 	/**
